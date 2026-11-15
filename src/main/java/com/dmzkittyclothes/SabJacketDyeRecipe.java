@@ -19,8 +19,8 @@ import java.util.List;
 
 /**
  * Jaqueta + corante(s) + 1 item marcador:
- *  - marcador da tag dmz_kitty_clothes:logo_marker (padrao: fragmento de ametista) -> tinge a logo;
- *  - marcador da tag dmz_kitty_clothes:stripe_marker (padrao: quartzo) -> tinge a listra.
+ *  - marcador da tag dmz_kitty_clothes:logo_marker (item "Kit de Coloracao 2": la branca + corante branco/farinha de osso) -> tinge a logo;
+ *  - marcador da tag dmz_kitty_clothes:stripe_marker (item "Kit de Coloracao 3": la preta + corante preto/tinta de lula) -> tinge a listra.
  * Sem marcador, vale a receita normal de armadura de couro (cor principal), que ja existe no vanilla.
  * As tags podem ser trocadas por datapack.
  */
@@ -76,6 +76,17 @@ public class SabJacketDyeRecipe extends CustomRecipe {
         int color = ((SabJacketItem) result.getItem()).getColor(net.minecraft.world.item.DyeableLeatherItem.dyeArmor(new ItemStack(result.getItem()), p.dyes()));
         result.getOrCreateTag().putInt(p.logo() ? SabJacketItem.LOGO_KEY : SabJacketItem.STRIPE_KEY, color);
         return result;
+    }
+
+    /** O kit nao e consumido: volta pra bancada depois da receita. */
+    @Override
+    public net.minecraft.core.NonNullList<ItemStack> getRemainingItems(CraftingContainer container) {
+        net.minecraft.core.NonNullList<ItemStack> rest = super.getRemainingItems(container);
+        for (int i = 0; i < rest.size(); i++) {
+            ItemStack s = container.getItem(i);
+            if (s.is(LOGO_MARKER) || s.is(STRIPE_MARKER)) rest.set(i, s.copyWithCount(1));
+        }
+        return rest;
     }
 
     @Override

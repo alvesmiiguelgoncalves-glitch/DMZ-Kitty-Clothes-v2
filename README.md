@@ -59,8 +59,10 @@ Tres regioes, cada uma com seu corante, na bancada de trabalho:
 | Regiao | Receita |
 |---|---|
 | Principal | jaqueta + corante(s) (receita normal de armadura de couro) |
-| Logo | jaqueta + corante(s) + fragmento de ametista |
-| Listra | jaqueta + corante(s) + quartzo |
+| Logo | jaqueta + corante(s) + Kit de Coloração 2 |
+| Listra | jaqueta + corante(s) + Kit de Coloração 3 |
+
+Kit 2 = la branca + corante branco (ou farinha de osso). Kit 3 = la preta + corante preto (ou tinta de lula). O kit NAO e consumido (volta para a bancada).
 
 Regiao sem corante mantem a cor original da textura. Agua no caldeirao remove as tres cores.
 Os marcadores sao as tags `dmz_kitty_clothes:logo_marker` e `dmz_kitty_clothes:stripe_marker` (trocaveis por datapack).

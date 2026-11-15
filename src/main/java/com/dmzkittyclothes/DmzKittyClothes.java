@@ -30,11 +30,18 @@ public class DmzKittyClothes {
     public static final RegistryObject<Item> SAB_JACKET = ITEMS.register("sab_jacket",
             () -> new SabJacketItem(new Item.Properties().stacksTo(1)));
 
+    public static final RegistryObject<Item> LOGO_DYE_KIT = ITEMS.register("logo_dye_kit", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> STRIPE_DYE_KIT = ITEMS.register("stripe_dye_kit", () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("main",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup." + MOD_ID))
                     .icon(() -> SAB_JACKET.get().getDefaultInstance())
-                    .displayItems((parameters, output) -> output.accept(SAB_JACKET.get()))
+                    .displayItems((parameters, output) -> {
+                        output.accept(SAB_JACKET.get());
+                        output.accept(LOGO_DYE_KIT.get());
+                        output.accept(STRIPE_DYE_KIT.get());
+                    })
                     .build());
 
     private static final DeferredRegister<net.minecraft.world.item.crafting.RecipeSerializer<?>> RECIPES =

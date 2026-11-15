@@ -1,5 +1,7 @@
 {
   "item.dmz_kitty_clothes.sab_jacket": "Jaqueta S.A.B.",
   "itemGroup.dmz_kitty_clothes": "DMZ: Kitty's Clothes",
-  "curios.identifier.jacket": "Jaqueta"
+  "curios.identifier.jacket": "Jaqueta",
+  "item.dmz_kitty_clothes.logo_dye_kit": "Kit de Coloração 2 (Logo)",
+  "item.dmz_kitty_clothes.stripe_dye_kit": "Kit de Coloração 3 (Listra)"
 }
