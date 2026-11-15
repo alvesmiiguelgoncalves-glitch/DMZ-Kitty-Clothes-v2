@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "dmz_kitty_clothes:item/long_gloves"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "dmz_kitty_clothes:dyed": 1
+      },
+      "model": "dmz_kitty_clothes:item/long_gloves_dyed"
+    }
+  ]
+}

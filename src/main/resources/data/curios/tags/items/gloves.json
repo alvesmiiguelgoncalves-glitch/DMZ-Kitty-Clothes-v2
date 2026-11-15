@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "dmz_kitty_clothes:gloves",
+    "dmz_kitty_clothes:fingerless_gloves",
+    "dmz_kitty_clothes:long_gloves",
+    "dmz_kitty_clothes:long_fingerless_gloves"
+  ]
+}
