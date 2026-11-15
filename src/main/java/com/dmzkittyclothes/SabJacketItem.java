@@ -31,6 +31,12 @@ public class SabJacketItem extends Item implements ICurioItem, DyeableLeatherIte
         super(properties);
     }
 
+    /** Botao direito com a jaqueta na mao equipa no slot de Curios (como armadura). */
+    @Override
+    public boolean canEquipFromUse(top.theillusivec4.curios.api.SlotContext slotContext, ItemStack stack) {
+        return true;
+    }
+
     public static boolean hasLogoColor(ItemStack stack) {
         return stack.getTag() != null && stack.getTag().contains(LOGO_KEY, 99);
     }

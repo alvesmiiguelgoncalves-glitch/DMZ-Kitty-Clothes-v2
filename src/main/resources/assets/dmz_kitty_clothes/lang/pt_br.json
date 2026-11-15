@@ -2,6 +2,13 @@
   "item.dmz_kitty_clothes.sab_jacket": "Jaqueta S.A.B.",
   "itemGroup.dmz_kitty_clothes": "DMZ: Kitty's Clothes",
   "curios.identifier.jacket": "Jaqueta",
-  "item.dmz_kitty_clothes.logo_dye_kit": "Kit de Coloração 2 (Logo)",
-  "item.dmz_kitty_clothes.stripe_dye_kit": "Kit de Coloração 3 (Listra)"
+  "item.dmz_kitty_clothes.logo_dye_kit": "Kit de Coloração 2",
+  "item.dmz_kitty_clothes.stripe_dye_kit": "Kit de Coloração 3",
+  "item.dmz_kitty_clothes.logo_dye_kit.desc": "Utilizado para a alteração da segunda cor da vestimenta",
+  "item.dmz_kitty_clothes.stripe_dye_kit.desc": "Utilizado para a alteração da terceira cor da vestimenta",
+  "item.dmz_kitty_clothes.gloves": "Luvas",
+  "item.dmz_kitty_clothes.fingerless_gloves": "Luvas sem Dedos",
+  "item.dmz_kitty_clothes.long_gloves": "Luvas Longas",
+  "item.dmz_kitty_clothes.long_fingerless_gloves": "Luvas Longas sem Dedos",
+  "curios.identifier.gloves": "Luvas"
 }

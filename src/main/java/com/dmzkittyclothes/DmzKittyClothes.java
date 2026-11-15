@@ -30,8 +30,15 @@ public class DmzKittyClothes {
     public static final RegistryObject<Item> SAB_JACKET = ITEMS.register("sab_jacket",
             () -> new SabJacketItem(new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Item> LOGO_DYE_KIT = ITEMS.register("logo_dye_kit", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> STRIPE_DYE_KIT = ITEMS.register("stripe_dye_kit", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> LOGO_DYE_KIT = ITEMS.register("logo_dye_kit", () -> new DyeKitItem(new Item.Properties()));
+    public static final RegistryObject<Item> STRIPE_DYE_KIT = ITEMS.register("stripe_dye_kit", () -> new DyeKitItem(new Item.Properties()));
+
+    public static final java.util.List<RegistryObject<Item>> GLOVES = new java.util.ArrayList<>();
+    static {
+        for (String n : new String[]{"gloves", "fingerless_gloves", "long_gloves", "long_fingerless_gloves"}) {
+            GLOVES.add(ITEMS.register(n, () -> new GlovesItem(new Item.Properties().stacksTo(1), n)));
+        }
+    }
 
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("main",
             () -> CreativeModeTab.builder()
@@ -41,6 +48,7 @@ public class DmzKittyClothes {
                         output.accept(SAB_JACKET.get());
                         output.accept(LOGO_DYE_KIT.get());
                         output.accept(STRIPE_DYE_KIT.get());
+                        GLOVES.forEach(g -> output.accept(g.get()));
                     })
                     .build());
 
@@ -60,6 +68,9 @@ public class DmzKittyClothes {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         // Agua no caldeirao remove as tres cores.
-        event.enqueueWork(() -> CauldronInteraction.WATER.put(SAB_JACKET.get(), SabJacketItem::washInCauldron));
+        event.enqueueWork(() -> {
+            CauldronInteraction.WATER.put(SAB_JACKET.get(), SabJacketItem::washInCauldron);
+            GLOVES.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
+        });
     }
 }

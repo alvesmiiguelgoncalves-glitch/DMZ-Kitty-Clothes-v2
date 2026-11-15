@@ -31,6 +31,11 @@ public class SabJacketRenderer implements ICurioRenderer {
     private static final ResourceLocation TEXTURE_LOGO = new ResourceLocation(DmzKittyClothes.MOD_ID, "textures/models/sab_jacket_dyed_color2.png");
     private static final ResourceLocation TEXTURE_STRIPE = new ResourceLocation(DmzKittyClothes.MOD_ID, "textures/models/sab_jacket_dyed_color3.png");
 
+    private static final ResourceLocation TEXTURE_FIXED = new ResourceLocation(DmzKittyClothes.MOD_ID, "textures/models/sab_jacket_fixed.png");
+    private static final ResourceLocation TEXTURE_DEFAULT1 = new ResourceLocation(DmzKittyClothes.MOD_ID, "textures/models/sab_jacket_default1.png");
+    private static final ResourceLocation TEXTURE_DEFAULT2 = new ResourceLocation(DmzKittyClothes.MOD_ID, "textures/models/sab_jacket_default2.png");
+    private static final ResourceLocation TEXTURE_DEFAULT3 = new ResourceLocation(DmzKittyClothes.MOD_ID, "textures/models/sab_jacket_default3.png");
+
     private final SabJacketModel model;
 
     public SabJacketRenderer(SabJacketModel model) {
@@ -49,12 +54,20 @@ public class SabJacketRenderer implements ICurioRenderer {
         model.crouching = base.crouching;
         model.followPose(base);
 
-        // 1) textura original completa (cores de fabrica + pixels fixos escuros)
-        draw(buffer, TEXTURE, stack.hasFoil(), poseStack, light, 0xFFFFFF);
-        // 2) cada regiao tingida e desenhada por cima (mesma geometria, mascara em tons de cinza * cor)
-        if (item.hasCustomColor(stack)) draw(buffer, TEXTURE_DYED, false, poseStack, light, item.getColor(stack));
-        if (SabJacketItem.hasLogoColor(stack)) draw(buffer, TEXTURE_LOGO, false, poseStack, light, SabJacketItem.getLogoColor(stack));
-        if (SabJacketItem.hasStripeColor(stack)) draw(buffer, TEXTURE_STRIPE, false, poseStack, light, SabJacketItem.getStripeColor(stack));
+        boolean main = item.hasCustomColor(stack), logo = SabJacketItem.hasLogoColor(stack), stripe = SabJacketItem.hasStripeColor(stack);
+        boolean foil = stack.hasFoil();
+        if (!main && !logo && !stripe) {
+            draw(buffer, TEXTURE, foil, poseStack, light, 0xFFFFFF);
+            return;
+        }
+        // As regioes nunca se sobrepoem (sem z-fighting): cada uma e a mascara tingida OU a textura original so daquela regiao.
+        draw(buffer, TEXTURE_FIXED, foil, poseStack, light, 0xFFFFFF);
+        if (main) draw(buffer, TEXTURE_DYED, false, poseStack, light, item.getColor(stack));
+        else draw(buffer, TEXTURE_DEFAULT1, false, poseStack, light, 0xFFFFFF);
+        if (logo) draw(buffer, TEXTURE_LOGO, false, poseStack, light, SabJacketItem.getLogoColor(stack));
+        else draw(buffer, TEXTURE_DEFAULT2, false, poseStack, light, 0xFFFFFF);
+        if (stripe) draw(buffer, TEXTURE_STRIPE, false, poseStack, light, SabJacketItem.getStripeColor(stack));
+        else draw(buffer, TEXTURE_DEFAULT3, false, poseStack, light, 0xFFFFFF);
     }
 
     private void draw(MultiBufferSource buffer, ResourceLocation tex, boolean foil, PoseStack poseStack, int light, int color) {

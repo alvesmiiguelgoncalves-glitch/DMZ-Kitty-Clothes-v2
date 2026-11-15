@@ -67,3 +67,8 @@ Kit 2 = la branca + corante branco (ou farinha de osso). Kit 3 = la preta + cora
 Regiao sem corante mantem a cor original da textura. Agua no caldeirao remove as tres cores.
 Os marcadores sao as tags `dmz_kitty_clothes:logo_marker` e `dmz_kitty_clothes:stripe_marker` (trocaveis por datapack).
 Texturas: `sab_jacket.png` (original completa), `sab_jacket_dyed.png` (principal), `sab_jacket_dyed_color2.png` (logo), `sab_jacket_dyed_color3.png` (listra); as tres em tons de cinza, tingidas por cima da original.
+
+## Luvas (v1.4.0)
+
+Slot Curios `gloves`. Quatro itens: Luvas, Luvas sem Dedos, Luvas Longas, Luvas Longas sem Dedos. Botao direito equipa; tingem com a receita de armadura de couro; agua no caldeirao remove a cor.
+Texturas em `textures/models/`: `<nome>.png` (aparencia padrao) e `<nome>_dyed.png` (tons de cinza, tingida). No UV de skin 64x64 (braco direito em 40,16 e esquerdo em 32,48).
