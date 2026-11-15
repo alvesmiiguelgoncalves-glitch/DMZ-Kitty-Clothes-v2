@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": { "layer0": "dmz_kitty_clothes:item/sab_jacket" },
+  "overrides": [
+    { "predicate": { "dmz_kitty_clothes:dyed": 1 }, "model": "dmz_kitty_clothes:item/sab_jacket_dyed" }
+  ]
+}

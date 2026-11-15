@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "dmz_kitty_clothes:item/sab_jacket_dyed",
+    "layer1": "dmz_kitty_clothes:item/sab_jacket_dyed_fixed"
+  }
+}
