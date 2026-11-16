@@ -22,6 +22,7 @@ public final class TintTextures {
     private static final Map<String, ResourceLocation> CACHE = new HashMap<>();
     private static float cachedFloor = -1F;
     private static float cachedDark = -1F;
+    private static float cachedColorFloor = -1F;
 
     private TintTextures() {
     }
@@ -30,10 +31,12 @@ public final class TintTextures {
     public static ResourceLocation get(ResourceLocation src, int color) {
         float floor = KittyConfig.get(KittyConfig.TINT_FLOOR);
         float dark = KittyConfig.get(KittyConfig.TINT_DARK_DETAIL);
-        if (floor != cachedFloor || dark != cachedDark || CACHE.size() > 128) {
+        float cf = KittyConfig.get(KittyConfig.TINT_COLOR_FLOOR);
+        if (floor != cachedFloor || dark != cachedDark || cf != cachedColorFloor || CACHE.size() > 128) {
             clear();
             cachedFloor = floor;
             cachedDark = dark;
+            cachedColorFloor = cf;
         }
         int rgb = color & 0xFFFFFF;
         return CACHE.computeIfAbsent(src + "#" + rgb, k -> build(src, rgb, floor, dark));
@@ -50,6 +53,7 @@ public final class TintTextures {
     }
 
     private static ResourceLocation build(ResourceLocation src, int rgb, float floor, float dark) {
+        float colorFloor = KittyConfig.get(KittyConfig.TINT_COLOR_FLOOR);
         float cr = (rgb >> 16 & 0xFF) / 255F, cg = (rgb >> 8 & 0xFF) / 255F, cb = (rgb & 0xFF) / 255F;
         float lum = 0.299F * cr + 0.587F * cg + 0.114F * cb;
         // O realce de detalhe vale so para preto (corante preto = #1D1D21): qualquer canal acima de 40 desliga.
@@ -75,8 +79,8 @@ public final class TintTextures {
                     int a = p >>> 24;
                     if (a == 0) continue;
                     float n = max > min ? (float) ((p & 0xFF) - min) / (max - min) : 1F;
-                    // preto: cinza esticado; outras cores: multiplicacao simples pelo cinza original (como no vanilla)
-                    float m = black ? floor + (1F - floor) * n : (p & 0xFF) / 255F;
+                    // preto: cinza esticado (floor); outras cores: realce mais leve (colorFloor)
+                    float m = black ? floor + (1F - floor) * n : colorFloor + (1F - colorFloor) * n;
                     // cores escuras: soma um brilho que acompanha o sombreado, senao preto * cinza = preto liso
                     int r = clamp((cr * m + lift * n) * 255F);
                     int g = clamp((cg * m + lift * n) * 255F);
