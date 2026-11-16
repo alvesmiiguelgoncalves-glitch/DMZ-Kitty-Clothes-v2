@@ -24,6 +24,7 @@ public final class ClientSetup {
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(SabJacketModel.LAYER, SabJacketModel::createBodyLayer);
         event.registerLayerDefinition(GlovesModel.LAYER, GlovesModel::createBodyLayer);
+        event.registerLayerDefinition(SuitModel.LAYER, SuitModel::createBodyLayer);
     }
 
     @SubscribeEvent
@@ -37,6 +38,8 @@ public final class ClientSetup {
                 ItemProperties.register(g.get(), new ResourceLocation(DmzKittyClothes.MOD_ID, "dyed"),
                         (stack, level, entity, seed) -> stack.getItem() instanceof com.dmzkittyclothes.GlovesItem item && item.hasCustomColor(stack) ? 1.0F : 0.0F);
             });
+            DmzKittyClothes.SUITS.forEach(g -> CuriosRendererRegistry.register(g.get(),
+                    () -> new SuitRenderer(new SuitModel(Minecraft.getInstance().getEntityModels().bakeLayer(SuitModel.LAYER)))));
             // 1 = dyed: the item model switches to the grayscale icon, which is tinted with the dye color.
             ItemProperties.register(DmzKittyClothes.SAB_JACKET.get(), new ResourceLocation(DmzKittyClothes.MOD_ID, "dyed"),
                     (stack, level, entity, seed) -> stack.getItem() instanceof SabJacketItem item && item.hasCustomColor(stack) ? 1.0F : 0.0F);
@@ -52,6 +55,6 @@ public final class ClientSetup {
             return 0xFFFFFF;
         }, DmzKittyClothes.SAB_JACKET.get());
         event.register((stack, tintIndex) -> tintIndex == 0 && stack.getItem() instanceof DyeableLeatherItem d && d.hasCustomColor(stack) ? d.getColor(stack) : 0xFFFFFF,
-                DmzKittyClothes.GLOVES.stream().map(g -> (net.minecraft.world.level.ItemLike) g.get()).toArray(net.minecraft.world.level.ItemLike[]::new));
+                java.util.stream.Stream.concat(DmzKittyClothes.GLOVES.stream(), DmzKittyClothes.SUITS.stream()).map(g -> (net.minecraft.world.level.ItemLike) g.get()).toArray(net.minecraft.world.level.ItemLike[]::new));
     }
 }

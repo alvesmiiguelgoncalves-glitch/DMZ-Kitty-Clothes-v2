@@ -21,12 +21,16 @@ public abstract class BoneVisibilityMixin {
     @Inject(method = "updateVisibility", at = @At("TAIL"), remap = false)
     private static void kitty$hideShirt(BakedGeoModel model, AbstractClientPlayer player,
                                         GeoRenderLayer<?> renderLayer, CallbackInfo ci) {
-        boolean worn = CuriosApi.getCuriosInventory(player)
-                .map(h -> h.findFirstCurio(DmzKittyClothes.SAB_JACKET.get()).isPresent())
-                .orElse(false);
-        if (!worn) return;
+        var inv = CuriosApi.getCuriosInventory(player);
+        boolean jacket = inv.map(h -> h.findFirstCurio(DmzKittyClothes.SAB_JACKET.get()).isPresent()).orElse(false);
+        boolean suit = inv.map(h -> h.findFirstCurio(st -> st.getItem() instanceof com.dmzkittyclothes.SuitItem).isPresent()).orElse(false);
+        if (!jacket && !suit) return;
         BoneVisibilityHandler.hideBone(model, "body_layer", true);
         BoneVisibilityHandler.hideBone(model, "right_arm_layer", true);
         BoneVisibilityHandler.hideBone(model, "left_arm_layer", true);
+        if (suit) {
+            BoneVisibilityHandler.hideBone(model, "right_leg_layer", true);
+            BoneVisibilityHandler.hideBone(model, "left_leg_layer", true);
+        }
     }
 }

@@ -10,6 +10,7 @@ public final class KittyConfig {
     public static final ForgeConfigSpec.DoubleValue SKIRT_SCALE_X, SKIRT_SCALE_Y, SKIRT_SCALE_Z;
     public static final ForgeConfigSpec.DoubleValue SKIRT_OFFSET_X, SKIRT_OFFSET_Y, SKIRT_OFFSET_Z;
     public static final ForgeConfigSpec.DoubleValue GLOVE_THICKNESS;
+    public static final ForgeConfigSpec.DoubleValue SUIT_THICKNESS;
     public static final ForgeConfigSpec.DoubleValue ARM_SCALE_X, ARM_SCALE_Y, ARM_SCALE_Z;
 
     /** {scaleX, scaleY, scaleZ, offsetX, offsetY, offsetZ} */
@@ -48,6 +49,9 @@ public final class KittyConfig {
 
         b.comment("Luvas. A espessura so vale depois de reiniciar o jogo.").push("gloves");
         GLOVE_THICKNESS = b.comment("Espessura extra do braco da luva (pixels). A manga da jaqueta usa 0.33 (interna) e 0.43 (externa): menor que isso = a luva fica por baixo da jaqueta").defineInRange("thickness", 0.2, 0.0, 1.0);
+        b.pop();
+        b.comment("Macacoes. A espessura so vale depois de reiniciar o jogo.").push("suit");
+        SUIT_THICKNESS = b.comment("Espessura extra do macacao (pixels). Luvas usam 0.2 e a jaqueta 0.33+: o macacao deve ficar por baixo das duas").defineInRange("thickness", 0.15, 0.0, 1.0);
         b.pop();
         extra(b, "waist", "Faixa/quadrado da cintura da jaqueta.", WAIST, 0.98, 1.15, 0.85, 0, 0, 0);
         extra(b, "collar", "Gola (parte em volta do pescoco/cabeca).", COLLAR, 0.98, 1.0, 0.98, 0, -0.1, 0);

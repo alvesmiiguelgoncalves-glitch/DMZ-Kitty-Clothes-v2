@@ -40,6 +40,14 @@ public class DmzKittyClothes {
         }
     }
 
+    public static final java.util.List<RegistryObject<Item>> SUITS = new java.util.ArrayList<>();
+    static {
+        for (String n : new String[]{"jumpsuit", "jumpsuit_shorts", "jumpsuit_short_sleeves", "jumpsuit_short_sleeves_shorts",
+                "jumpsuit_sleeveless", "jumpsuit_sleeveless_shorts", "jumpsuit_vest", "jumpsuit_vest_shorts"}) {
+            SUITS.add(ITEMS.register(n, () -> new SuitItem(new Item.Properties().stacksTo(1), n)));
+        }
+    }
+
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("main",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup." + MOD_ID))
@@ -49,6 +57,7 @@ public class DmzKittyClothes {
                         output.accept(DYE_KIT_2.get());
                         output.accept(DYE_KIT_3.get());
                         GLOVES.forEach(g -> output.accept(g.get()));
+                        SUITS.forEach(g -> output.accept(g.get()));
                     })
                     .build());
 
@@ -71,6 +80,7 @@ public class DmzKittyClothes {
         event.enqueueWork(() -> {
             CauldronInteraction.WATER.put(SAB_JACKET.get(), SabJacketItem::washInCauldron);
             GLOVES.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
+            SUITS.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
         });
     }
 }

@@ -10,5 +10,14 @@
   "item.dmz_kitty_clothes.fingerless_gloves": "Fingerless Gloves",
   "item.dmz_kitty_clothes.long_gloves": "Long Gloves",
   "item.dmz_kitty_clothes.long_fingerless_gloves": "Long Fingerless Gloves",
-  "curios.identifier.gloves": "Gloves"
+  "curios.identifier.gloves": "Gloves",
+  "item.dmz_kitty_clothes.jumpsuit": "c31e446e",
+  "item.dmz_kitty_clothes.jumpsuit_shorts": "9214f266",
+  "item.dmz_kitty_clothes.jumpsuit_short_sleeves": "bca278d1",
+  "item.dmz_kitty_clothes.jumpsuit_short_sleeves_shorts": "ade4bcee",
+  "item.dmz_kitty_clothes.jumpsuit_sleeveless": "28715ad6",
+  "item.dmz_kitty_clothes.jumpsuit_sleeveless_shorts": "3e11d601",
+  "item.dmz_kitty_clothes.jumpsuit_vest": "86361feb",
+  "item.dmz_kitty_clothes.jumpsuit_vest_shorts": "945e50db",
+  "curios.identifier.bodysuit": "Jumpsuit"
 }

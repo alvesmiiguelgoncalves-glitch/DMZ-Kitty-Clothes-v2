@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "dmz_kitty_clothes:jumpsuit",
+    "dmz_kitty_clothes:jumpsuit_shorts",
+    "dmz_kitty_clothes:jumpsuit_short_sleeves",
+    "dmz_kitty_clothes:jumpsuit_short_sleeves_shorts",
+    "dmz_kitty_clothes:jumpsuit_sleeveless",
+    "dmz_kitty_clothes:jumpsuit_sleeveless_shorts",
+    "dmz_kitty_clothes:jumpsuit_vest",
+    "dmz_kitty_clothes:jumpsuit_vest_shorts"
+  ]
+}

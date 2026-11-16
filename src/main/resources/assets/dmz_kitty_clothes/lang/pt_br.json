@@ -10,5 +10,14 @@
   "item.dmz_kitty_clothes.fingerless_gloves": "Luvas sem Dedos",
   "item.dmz_kitty_clothes.long_gloves": "Luvas Longas",
   "item.dmz_kitty_clothes.long_fingerless_gloves": "Luvas Longas sem Dedos",
-  "curios.identifier.gloves": "Luvas"
+  "curios.identifier.gloves": "Luvas",
+  "item.dmz_kitty_clothes.jumpsuit": "Jumpsuit",
+  "item.dmz_kitty_clothes.jumpsuit_shorts": "Short-Legged Jumpsuit",
+  "item.dmz_kitty_clothes.jumpsuit_short_sleeves": "Short-Sleeved Jumpsuit",
+  "item.dmz_kitty_clothes.jumpsuit_short_sleeves_shorts": "Short-Sleeved Short-Legged Jumpsuit",
+  "item.dmz_kitty_clothes.jumpsuit_sleeveless": "Sleeveless Jumpsuit",
+  "item.dmz_kitty_clothes.jumpsuit_sleeveless_shorts": "Sleeveless Short-Legged Jumpsuit",
+  "item.dmz_kitty_clothes.jumpsuit_vest": "Vest Jumpsuit",
+  "item.dmz_kitty_clothes.jumpsuit_vest_shorts": "Short-Legged Vest Jumpsuit",
+  "curios.identifier.bodysuit": "Macacão"
 }
