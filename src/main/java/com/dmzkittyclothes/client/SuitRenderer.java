@@ -37,11 +37,9 @@ public class SuitRenderer implements ICurioRenderer {
 
         boolean dyed = item.hasCustomColor(stack);
         int color = dyed ? item.getColor(stack) : 0xFFFFFF;
-        float r = (color >> 16 & 0xFF) / 255.0F;
-        float g = (color >> 8 & 0xFF) / 255.0F;
-        float b = (color & 0xFF) / 255.0F;
+        float r = 1.0F, g = 1.0F, b = 1.0F;
         VertexConsumer consumer = ItemRenderer.getArmorFoilBuffer(buffer,
-                RenderType.armorCutoutNoCull(item.texture()), false, stack.hasFoil());
+                RenderType.armorCutoutNoCull(dyed ? TintTextures.get(item.texture(), color) : item.texture()), false, stack.hasFoil());
         model.renderToBuffer(poseStack, consumer, light, OverlayTexture.NO_OVERLAY, r, g, b, 1.0F);
     }
 }

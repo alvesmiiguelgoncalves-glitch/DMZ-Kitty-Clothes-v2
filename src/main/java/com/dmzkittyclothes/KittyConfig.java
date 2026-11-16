@@ -9,6 +9,8 @@ public final class KittyConfig {
 
     public static final ForgeConfigSpec.DoubleValue SKIRT_SCALE_X, SKIRT_SCALE_Y, SKIRT_SCALE_Z;
     public static final ForgeConfigSpec.DoubleValue SKIRT_OFFSET_X, SKIRT_OFFSET_Y, SKIRT_OFFSET_Z;
+    public static final ForgeConfigSpec.DoubleValue TINT_FLOOR;
+    public static final ForgeConfigSpec.DoubleValue TINT_DARK_DETAIL;
     public static final ForgeConfigSpec.DoubleValue GLOVE_THICKNESS;
     public static final ForgeConfigSpec.DoubleValue SUIT_THICKNESS;
     public static final ForgeConfigSpec.DoubleValue ARM_SCALE_X, ARM_SCALE_Y, ARM_SCALE_Z;
@@ -47,6 +49,11 @@ public final class KittyConfig {
         ARM_SCALE_Z = b.defineInRange("scaleZ", 1.0, 0.1, 3.0);
         b.pop();
 
+        b.comment("Cores. Texturas tingidas: o cinza mais escuro vira este valor (0 = contraste maximo, 1 = sem realce).",
+                "Mais baixo = detalhes mais visiveis, mas a roupa fica mais escura. Aplica ao recarregar recursos (F3+T) ou reiniciar.").push("tint");
+        TINT_FLOOR = b.defineInRange("contrastFloor", 0.5, 0.0, 1.0);
+        TINT_DARK_DETAIL = b.comment("Detalhe em cores escuras (preto, azul-marinho...): quanto de brilho o sombreado soma. 0 = desliga, mais alto = detalhe mais visivel, porem mais claro").defineInRange("darkDetail", 0.3, 0.0, 1.0);
+        b.pop();
         b.comment("Luvas. A espessura so vale depois de reiniciar o jogo.").push("gloves");
         GLOVE_THICKNESS = b.comment("Espessura extra do braco da luva (pixels). A manga da jaqueta usa 0.33 (interna) e 0.43 (externa): menor que isso = a luva fica por baixo da jaqueta").defineInRange("thickness", 0.2, 0.0, 1.0);
         b.pop();

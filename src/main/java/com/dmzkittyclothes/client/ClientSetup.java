@@ -28,6 +28,11 @@ public final class ClientSetup {
     }
 
     @SubscribeEvent
+    public static void reloadListeners(net.minecraftforge.client.event.RegisterClientReloadListenersEvent event) {
+        event.registerReloadListener((net.minecraft.server.packs.resources.ResourceManagerReloadListener) rm -> TintTextures.clear());
+    }
+
+    @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             CuriosRendererRegistry.register(DmzKittyClothes.SAB_JACKET.get(),

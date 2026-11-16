@@ -76,3 +76,10 @@ Texturas em `textures/models/`: `<nome>.png` (aparencia padrao) e `<nome>_dyed.p
 ## Macacões (v1.5.0)
 
 Slot Curios `bodysuit`; oito itens (`jumpsuit*`), tingem com corante (receita de armadura de couro), água no caldeirao remove, botão direito equipa. Espessura 0.15 (config `[suit]`), por baixo das luvas (0.2) e da jaqueta (0.33+).
+
+## Cores exatas e contraste (v1.5.1)
+
+- `/kittycolor <main|second|third> <hex>` (precisa de cheats): define a cor exata do item na mão principal (ex.: `/kittycolor main #1B2A6B`); `second`/`third` só na jaqueta. `/kittycolor clear` remove as cores.
+- Texturas tingidas têm o sombreado realçado automaticamente; ajuste em `[tint] contrastFloor` na config.
+
+Cores escuras (v1.5.2): a textura tingida é gerada por cor, somando um brilho que acompanha o sombreado, então preto/azul-marinho mantêm os detalhes. Ajuste em `[tint] darkDetail` (0 desliga).
