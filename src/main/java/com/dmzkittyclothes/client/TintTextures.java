@@ -52,7 +52,9 @@ public final class TintTextures {
     private static ResourceLocation build(ResourceLocation src, int rgb, float floor, float dark) {
         float cr = (rgb >> 16 & 0xFF) / 255F, cg = (rgb >> 8 & 0xFF) / 255F, cb = (rgb & 0xFF) / 255F;
         float lum = 0.299F * cr + 0.587F * cg + 0.114F * cb;
-        float lift = dark * (1F - lum) * 0.5F;
+        // O realce de detalhe vale so para preto (corante preto = #1D1D21): qualquer canal acima de 40 desliga.
+        boolean black = Math.max((rgb >> 16) & 0xFF, Math.max((rgb >> 8) & 0xFF, rgb & 0xFF)) <= 40;
+        float lift = black ? dark * (1F - lum) * 0.5F : 0F;
         try (InputStream in = Minecraft.getInstance().getResourceManager().open(src);
              NativeImage img = NativeImage.read(in)) {
             int w = img.getWidth(), h = img.getHeight();
@@ -73,7 +75,8 @@ public final class TintTextures {
                     int a = p >>> 24;
                     if (a == 0) continue;
                     float n = max > min ? (float) ((p & 0xFF) - min) / (max - min) : 1F;
-                    float m = floor + (1F - floor) * n;
+                    // preto: cinza esticado; outras cores: multiplicacao simples pelo cinza original (como no vanilla)
+                    float m = black ? floor + (1F - floor) * n : (p & 0xFF) / 255F;
                     // cores escuras: soma um brilho que acompanha o sombreado, senao preto * cinza = preto liso
                     int r = clamp((cr * m + lift * n) * 255F);
                     int g = clamp((cg * m + lift * n) * 255F);
