@@ -51,10 +51,20 @@ public class DmzKittyClothes {
     public static final java.util.List<RegistryObject<Item>> VESTS = new java.util.ArrayList<>();
     public static final java.util.List<RegistryObject<Item>> SASHES = new java.util.ArrayList<>();
     static {
-        VESTS.add(ITEMS.register("saiyan_vest_basic", () -> new AccessoryItem(new Item.Properties().stacksTo(1), "saiyan_vest_basic", true, true)));
+        VESTS.add(ITEMS.register("saiyan_vest_basic", () -> AccessoryItem.threeColors(new Item.Properties().stacksTo(1), "saiyan_vest_basic", true)));
         SASHES.add(ITEMS.register("saiyaman_belt", () -> AccessoryItem.colored(new Item.Properties().stacksTo(1), "saiyaman_belt", false)));
         for (String n : new String[]{"sash", "sash_tails", "sash_left_tail", "sash_right_tail"}) {
             SASHES.add(ITEMS.register(n, () -> new AccessoryItem(new Item.Properties().stacksTo(1), n, false, false)));
+        }
+    }
+
+    /** Armadura Saiyajin Completa (slot colete, 3 cores) e saias (slot saia, 2 cores). */
+    public static final java.util.List<RegistryObject<Item>> ARMORS = new java.util.ArrayList<>();
+    public static final java.util.List<RegistryObject<Item>> SKIRTS = new java.util.ArrayList<>();
+    static {
+        ARMORS.add(ITEMS.register("saiyan_armor_full", () -> AccessoryItem.threeColors(new Item.Properties().stacksTo(1), "saiyan_armor_full", true)));
+        for (String n : new String[]{"saiyan_skirt_mid", "saiyan_skirt_side"}) {
+            SKIRTS.add(ITEMS.register(n, () -> new AccessoryItem(new Item.Properties().stacksTo(1), n, true, false)));
         }
     }
 
@@ -69,6 +79,8 @@ public class DmzKittyClothes {
                         GLOVES.forEach(g -> output.accept(g.get()));
                         SUITS.forEach(g -> output.accept(g.get()));
                         VESTS.forEach(g -> output.accept(g.get()));
+                        ARMORS.forEach(g -> output.accept(g.get()));
+                        SKIRTS.forEach(g -> output.accept(g.get()));
                         SASHES.forEach(g -> output.accept(g.get()));
                     })
                     .build());
@@ -94,6 +106,8 @@ public class DmzKittyClothes {
             GLOVES.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
             SUITS.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
             VESTS.forEach(g -> CauldronInteraction.WATER.put(g.get(), SabJacketItem::washInCauldron));
+            ARMORS.forEach(g -> CauldronInteraction.WATER.put(g.get(), SabJacketItem::washInCauldron));
+            SKIRTS.forEach(g -> CauldronInteraction.WATER.put(g.get(), SabJacketItem::washInCauldron));
             SASHES.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
         });
     }

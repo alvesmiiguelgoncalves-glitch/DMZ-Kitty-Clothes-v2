@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "dmz_kitty_clothes:saiyan_vest_basic"
+    "dmz_kitty_clothes:saiyan_vest_basic",
+    "dmz_kitty_clothes:saiyan_armor_full"
   ]
 }

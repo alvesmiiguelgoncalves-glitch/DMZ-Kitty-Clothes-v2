@@ -25,12 +25,16 @@
   "command.kittycolor.hex": "Cor inválida. Use 6 dígitos hexadecimais, ex.: #1B2A6B.",
   "command.kittycolor.slot": "Este item só tem a cor principal (main). A segunda e a terceira cor são só da jaqueta.",
   "command.kittycolor.cleared": "Cores do item removidas.",
-  "item.dmz_kitty_clothes.saiyan_vest_basic": "Colete Saiyajin Básico",
+  "item.dmz_kitty_clothes.saiyan_vest_basic": "Armadura Saiyajin Básica",
   "item.dmz_kitty_clothes.sash": "Faixa",
   "item.dmz_kitty_clothes.sash_tails": "Faixa com Pontas",
   "item.dmz_kitty_clothes.sash_left_tail": "Faixa com Ponta Esquerda",
   "item.dmz_kitty_clothes.sash_right_tail": "Faixa com Ponta Direita",
   "curios.identifier.vest": "Colete",
   "curios.identifier.waist": "Cintura",
-  "item.dmz_kitty_clothes.saiyaman_belt": "Cinto do Grande Saiyaman"
+  "item.dmz_kitty_clothes.saiyaman_belt": "Cinto do Grande Saiyaman",
+  "item.dmz_kitty_clothes.saiyan_armor_full": "Armadura de Batalha Saiyajin",
+  "item.dmz_kitty_clothes.saiyan_skirt_mid": "Saia Saiyajin com Parte do Meio",
+  "item.dmz_kitty_clothes.saiyan_skirt_side": "Saia Saiyajin sem Parte do Meio",
+  "curios.identifier.skirt": "Saia"
 }

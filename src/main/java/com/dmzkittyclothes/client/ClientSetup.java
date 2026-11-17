@@ -26,6 +26,9 @@ public final class ClientSetup {
         event.registerLayerDefinition(GlovesModel.LAYER, GlovesModel::createBodyLayer);
         event.registerLayerDefinition(SuitModel.LAYER, SuitModel::createBodyLayer);
         event.registerLayerDefinition(SuitModel.VEST_LAYER, () -> SuitModel.createBodyLayer(com.dmzkittyclothes.KittyConfig.get(com.dmzkittyclothes.KittyConfig.VEST_THICKNESS)));
+        event.registerLayerDefinition(SaiyanModel.ARMOR_LAYER, SaiyanModel::createArmorLayer);
+        event.registerLayerDefinition(SaiyanModel.SKIRT_MID_LAYER, () -> SaiyanModel.createSkirtLayer(true));
+        event.registerLayerDefinition(SaiyanModel.SKIRT_SIDE_LAYER, () -> SaiyanModel.createSkirtLayer(false));
         event.registerLayerDefinition(SuitModel.WAIST_LAYER, () -> SuitModel.createBodyLayer(com.dmzkittyclothes.KittyConfig.get(com.dmzkittyclothes.KittyConfig.WAIST_THICKNESS)));
     }
 
@@ -49,6 +52,11 @@ public final class ClientSetup {
                     () -> new SuitRenderer(new SuitModel(Minecraft.getInstance().getEntityModels().bakeLayer(SuitModel.LAYER)))));
             DmzKittyClothes.VESTS.forEach(g -> CuriosRendererRegistry.register(g.get(),
                     () -> new AccessoryRenderer(new SuitModel(Minecraft.getInstance().getEntityModels().bakeLayer(SuitModel.VEST_LAYER)))));
+            DmzKittyClothes.ARMORS.forEach(g -> CuriosRendererRegistry.register(g.get(),
+                    () -> new AccessoryRenderer(new SaiyanModel(Minecraft.getInstance().getEntityModels().bakeLayer(SaiyanModel.ARMOR_LAYER)))));
+            DmzKittyClothes.SKIRTS.forEach(g -> CuriosRendererRegistry.register(g.get(),
+                    () -> new AccessoryRenderer(new SaiyanModel(Minecraft.getInstance().getEntityModels().bakeLayer(
+                            g.getId().getPath().endsWith("_mid") ? SaiyanModel.SKIRT_MID_LAYER : SaiyanModel.SKIRT_SIDE_LAYER)))));
             DmzKittyClothes.SASHES.forEach(g -> CuriosRendererRegistry.register(g.get(),
                     () -> new AccessoryRenderer(new SuitModel(Minecraft.getInstance().getEntityModels().bakeLayer(SuitModel.WAIST_LAYER)))));
             // 1 = dyed: the item model switches to the grayscale icon, which is tinted with the dye color.
@@ -66,6 +74,6 @@ public final class ClientSetup {
             return 0xFFFFFF;
         }, DmzKittyClothes.SAB_JACKET.get());
         event.register((stack, tintIndex) -> tintIndex == 0 && stack.getItem() instanceof DyeableLeatherItem d && d.hasCustomColor(stack) ? d.getColor(stack) : 0xFFFFFF,
-                java.util.stream.Stream.of(DmzKittyClothes.GLOVES, DmzKittyClothes.SUITS, DmzKittyClothes.VESTS, DmzKittyClothes.SASHES).flatMap(java.util.List::stream).map(g -> (net.minecraft.world.level.ItemLike) g.get()).toArray(net.minecraft.world.level.ItemLike[]::new));
+                java.util.stream.Stream.of(DmzKittyClothes.GLOVES, DmzKittyClothes.SUITS, DmzKittyClothes.VESTS, DmzKittyClothes.ARMORS, DmzKittyClothes.SKIRTS, DmzKittyClothes.SASHES).flatMap(java.util.List::stream).map(g -> (net.minecraft.world.level.ItemLike) g.get()).toArray(net.minecraft.world.level.ItemLike[]::new));
     }
 }

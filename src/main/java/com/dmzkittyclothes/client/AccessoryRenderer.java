@@ -57,6 +57,11 @@ public class AccessoryRenderer implements ICurioRenderer {
                     ? TintTextures.get(item.secondTexture(), SabJacketItem.getLogoColor(stack)) : item.secondTexture();
             draw(buffer, second, false, poseStack, light);
         }
+        if (item.thirdTexture() != null) {
+            ResourceLocation third = SabJacketItem.hasStripeColor(stack)
+                    ? TintTextures.get(item.thirdTexture(), SabJacketItem.getStripeColor(stack)) : item.thirdTexture();
+            draw(buffer, third, false, poseStack, light);
+        }
     }
 
     private void draw(MultiBufferSource buffer, ResourceLocation tex, boolean foil, PoseStack poseStack, int light) {

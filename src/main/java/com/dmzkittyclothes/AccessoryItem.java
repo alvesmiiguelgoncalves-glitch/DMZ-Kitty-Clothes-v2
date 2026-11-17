@@ -20,6 +20,7 @@ public class AccessoryItem extends Item implements ICurioItem, DyeableLeatherIte
     private ResourceLocation fullDefault;
     private ResourceLocation default1;
     private ResourceLocation default2;
+    private ResourceLocation thirdTexture;
 
     /**
      * Item cuja aparencia padrao e colorida (ex.: cinto do Grande Saiyaman). Texturas: "name.png" (padrao completo),
@@ -32,6 +33,20 @@ public class AccessoryItem extends Item implements ICurioItem, DyeableLeatherIte
         item.default1 = new ResourceLocation(DmzKittyClothes.MOD_ID, "textures/models/" + name + "_default1.png");
         item.default2 = new ResourceLocation(DmzKittyClothes.MOD_ID, "textures/models/" + name + "_default2.png");
         return item;
+    }
+
+    /**
+     * Item de 3 cores (mascaras cinza disjuntas): "name.png" = cor 1, "name_color2.png" = cor 2, "name_color3.png" = cor 3.
+     */
+    public static AccessoryItem threeColors(Properties properties, String name, boolean hidesShirt) {
+        AccessoryItem item = new AccessoryItem(properties, name, true, hidesShirt);
+        item.thirdTexture = new ResourceLocation(DmzKittyClothes.MOD_ID, "textures/models/" + name + "_color3.png");
+        return item;
+    }
+
+    /** null se o item nao tem terceira cor. */
+    public ResourceLocation thirdTexture() {
+        return thirdTexture;
     }
 
     public ResourceLocation fullDefault() {
@@ -72,7 +87,7 @@ public class AccessoryItem extends Item implements ICurioItem, DyeableLeatherIte
 
     @Override
     public boolean hasThird() {
-        return false;
+        return thirdTexture != null;
     }
 
     @Override
