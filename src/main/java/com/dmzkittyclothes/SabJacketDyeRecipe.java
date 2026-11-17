@@ -45,7 +45,7 @@ public class SabJacketDyeRecipe extends CustomRecipe {
         for (int i = 0; i < c.getContainerSize(); i++) {
             ItemStack s = c.getItem(i);
             if (s.isEmpty()) continue;
-            if (s.getItem() instanceof SabJacketItem) {
+            if (s.getItem() instanceof MultiColor && s.getItem() instanceof net.minecraft.world.item.DyeableLeatherItem) {
                 if (!jacket.isEmpty()) return null;
                 jacket = s;
             } else if (s.getItem() instanceof DyeItem dye) {
@@ -59,6 +59,7 @@ public class SabJacketDyeRecipe extends CustomRecipe {
             }
         }
         if (jacket.isEmpty() || dyes.isEmpty() || !(logo || stripe)) return null;
+        if (stripe && !((MultiColor) jacket.getItem()).hasThird()) return null;
         return new Parsed(jacket, dyes, logo, stripe);
     }
 
@@ -73,7 +74,7 @@ public class SabJacketDyeRecipe extends CustomRecipe {
         if (p == null) return ItemStack.EMPTY;
         ItemStack result = p.jacket().copyWithCount(1);
         // mistura os corantes entre si (como no vanilla), sem misturar com a cor anterior da regiao
-        int color = ((SabJacketItem) result.getItem()).getColor(net.minecraft.world.item.DyeableLeatherItem.dyeArmor(new ItemStack(result.getItem()), p.dyes()));
+        int color = ((net.minecraft.world.item.DyeableLeatherItem) result.getItem()).getColor(net.minecraft.world.item.DyeableLeatherItem.dyeArmor(new ItemStack(result.getItem()), p.dyes()));
         result.getOrCreateTag().putInt(p.logo() ? SabJacketItem.LOGO_KEY : SabJacketItem.STRIPE_KEY, color);
         return result;
     }

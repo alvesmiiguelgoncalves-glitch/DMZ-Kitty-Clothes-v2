@@ -38,7 +38,7 @@ public final class KittyCommands {
     private static ItemStack held(CommandContext<CommandSourceStack> c) throws com.mojang.brigadier.exceptions.CommandSyntaxException {
         ServerPlayer p = c.getSource().getPlayerOrException();
         ItemStack s = p.getMainHandItem();
-        return s.getItem() instanceof DyeableLeatherItem && (s.getItem() instanceof SabJacketItem || s.getItem() instanceof GlovesItem || s.getItem() instanceof SuitItem)
+        return s.getItem() instanceof DyeableLeatherItem && (s.getItem() instanceof MultiColor || s.getItem() instanceof GlovesItem || s.getItem() instanceof SuitItem || s.getItem() instanceof AccessoryItem)
                 ? s : ItemStack.EMPTY;
     }
 
@@ -49,7 +49,7 @@ public final class KittyCommands {
             return 0;
         }
         SabJacketItem.clearAllColors(s);
-        if (!(s.getItem() instanceof SabJacketItem)) ((DyeableLeatherItem) s.getItem()).clearColor(s);
+        
         c.getSource().sendSuccess(() -> Component.translatable("command.kittycolor.cleared"), false);
         return 1;
     }
@@ -73,7 +73,7 @@ public final class KittyCommands {
         switch (slot) {
             case "main" -> ((DyeableLeatherItem) s.getItem()).setColor(s, color);
             case "second", "third" -> {
-                if (!(s.getItem() instanceof SabJacketItem)) {
+                if (!(s.getItem() instanceof MultiColor mc) || (slot.equals("third") && !mc.hasThird())) {
                     c.getSource().sendFailure(Component.translatable("command.kittycolor.slot"));
                     return 0;
                 }

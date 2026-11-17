@@ -48,6 +48,16 @@ public class DmzKittyClothes {
         }
     }
 
+    public static final java.util.List<RegistryObject<Item>> VESTS = new java.util.ArrayList<>();
+    public static final java.util.List<RegistryObject<Item>> SASHES = new java.util.ArrayList<>();
+    static {
+        VESTS.add(ITEMS.register("saiyan_vest_basic", () -> new AccessoryItem(new Item.Properties().stacksTo(1), "saiyan_vest_basic", true, true)));
+        SASHES.add(ITEMS.register("saiyaman_belt", () -> AccessoryItem.colored(new Item.Properties().stacksTo(1), "saiyaman_belt", false)));
+        for (String n : new String[]{"sash", "sash_tails", "sash_left_tail", "sash_right_tail"}) {
+            SASHES.add(ITEMS.register(n, () -> new AccessoryItem(new Item.Properties().stacksTo(1), n, false, false)));
+        }
+    }
+
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("main",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup." + MOD_ID))
@@ -58,6 +68,8 @@ public class DmzKittyClothes {
                         output.accept(DYE_KIT_3.get());
                         GLOVES.forEach(g -> output.accept(g.get()));
                         SUITS.forEach(g -> output.accept(g.get()));
+                        VESTS.forEach(g -> output.accept(g.get()));
+                        SASHES.forEach(g -> output.accept(g.get()));
                     })
                     .build());
 
@@ -81,6 +93,8 @@ public class DmzKittyClothes {
             CauldronInteraction.WATER.put(SAB_JACKET.get(), SabJacketItem::washInCauldron);
             GLOVES.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
             SUITS.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
+            VESTS.forEach(g -> CauldronInteraction.WATER.put(g.get(), SabJacketItem::washInCauldron));
+            SASHES.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
         });
     }
 }

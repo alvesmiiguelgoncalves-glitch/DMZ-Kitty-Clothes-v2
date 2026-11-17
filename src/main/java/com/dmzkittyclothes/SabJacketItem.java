@@ -22,7 +22,12 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
  * </ul>
  * Regiao sem corante usa a cor original da textura. O caldeirao com agua tira as tres cores.
  */
-public class SabJacketItem extends Item implements ICurioItem, DyeableLeatherItem {
+public class SabJacketItem extends Item implements ICurioItem, DyeableLeatherItem, MultiColor {
+
+    @Override
+    public boolean hasThird() {
+        return true;
+    }
 
     public static final String LOGO_KEY = "logoColor";
     public static final String STRIPE_KEY = "stripeColor";
@@ -54,11 +59,11 @@ public class SabJacketItem extends Item implements ICurioItem, DyeableLeatherIte
     }
 
     public static boolean hasAnyColor(ItemStack stack) {
-        return stack.getItem() instanceof SabJacketItem item && (item.hasCustomColor(stack) || hasLogoColor(stack) || hasStripeColor(stack));
+        return stack.getItem() instanceof DyeableLeatherItem item && (item.hasCustomColor(stack) || hasLogoColor(stack) || hasStripeColor(stack));
     }
 
     public static void clearAllColors(ItemStack stack) {
-        if (stack.getItem() instanceof SabJacketItem item) item.clearColor(stack);
+        if (stack.getItem() instanceof DyeableLeatherItem item) item.clearColor(stack);
         if (stack.getTag() != null) {
             stack.getTag().remove(LOGO_KEY);
             stack.getTag().remove(STRIPE_KEY);

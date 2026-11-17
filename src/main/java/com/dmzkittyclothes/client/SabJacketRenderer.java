@@ -60,11 +60,11 @@ public class SabJacketRenderer implements ICurioRenderer {
             return;
         }
         // As regioes nunca se sobrepoem (sem z-fighting): cada uma e a mascara tingida OU a textura original so daquela regiao.
-        if (main) draw(buffer, TintTextures.get(TEXTURE_DYED, item.getColor(stack)), foil, poseStack, light, 0xFFFFFF);
+        if (main) draw(buffer, TintTextures.get(TEXTURE_DYED, item.getColor(stack), false), foil, poseStack, light, 0xFFFFFF);
         else draw(buffer, TEXTURE_DEFAULT1, foil, poseStack, light, 0xFFFFFF);
-        if (logo) draw(buffer, TintTextures.get(TEXTURE_LOGO, SabJacketItem.getLogoColor(stack)), false, poseStack, light, 0xFFFFFF);
+        if (logo) draw(buffer, TintTextures.get(TEXTURE_LOGO, SabJacketItem.getLogoColor(stack), false), false, poseStack, light, 0xFFFFFF);
         else draw(buffer, TEXTURE_DEFAULT2, false, poseStack, light, 0xFFFFFF);
-        if (stripe) draw(buffer, TintTextures.get(TEXTURE_STRIPE, SabJacketItem.getStripeColor(stack)), false, poseStack, light, 0xFFFFFF);
+        if (stripe) draw(buffer, TintTextures.get(TEXTURE_STRIPE, SabJacketItem.getStripeColor(stack), false), false, poseStack, light, 0xFFFFFF);
         else draw(buffer, TEXTURE_DEFAULT3, false, poseStack, light, 0xFFFFFF);
     }
 

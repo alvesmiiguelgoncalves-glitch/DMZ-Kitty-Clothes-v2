@@ -24,5 +24,13 @@
   "command.kittycolor.hold": "Hold the jacket, gloves or jumpsuit in your main hand.",
   "command.kittycolor.hex": "Invalid color. Use 6 hex digits, e.g. #1B2A6B.",
   "command.kittycolor.slot": "This item only has the main color. Second and third colors are jacket-only.",
-  "command.kittycolor.cleared": "Item colors cleared."
+  "command.kittycolor.cleared": "Item colors cleared.",
+  "item.dmz_kitty_clothes.saiyan_vest_basic": "Basic Saiyan Vest",
+  "item.dmz_kitty_clothes.sash": "Sash",
+  "item.dmz_kitty_clothes.sash_tails": "Sash with Tails",
+  "item.dmz_kitty_clothes.sash_left_tail": "Sash with Left Tail",
+  "item.dmz_kitty_clothes.sash_right_tail": "Sash with Right Tail",
+  "curios.identifier.vest": "Vest",
+  "curios.identifier.waist": "Waist",
+  "item.dmz_kitty_clothes.saiyaman_belt": "Great Saiyaman Belt"
 }

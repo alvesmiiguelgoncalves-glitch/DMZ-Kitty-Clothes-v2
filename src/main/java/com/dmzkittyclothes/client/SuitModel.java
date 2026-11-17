@@ -20,14 +20,23 @@ public class SuitModel extends HumanoidModel<LivingEntity> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(
             new ResourceLocation(DmzKittyClothes.MOD_ID, "suit"), "main");
 
+    public static final ModelLayerLocation VEST_LAYER = new ModelLayerLocation(
+            new ResourceLocation(DmzKittyClothes.MOD_ID, "vest"), "main");
+    public static final ModelLayerLocation WAIST_LAYER = new ModelLayerLocation(
+            new ResourceLocation(DmzKittyClothes.MOD_ID, "waist"), "main");
+
     public SuitModel(ModelPart root) {
         super(root);
     }
 
     public static LayerDefinition createBodyLayer() {
+        return createBodyLayer(KittyConfig.get(KittyConfig.SUIT_THICKNESS));
+    }
+
+    public static LayerDefinition createBodyLayer(float thickness) {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
-        CubeDeformation d = new CubeDeformation(KittyConfig.get(KittyConfig.SUIT_THICKNESS));
+        CubeDeformation d = new CubeDeformation(thickness);
         root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4F, 0F, -2F, 8F, 12F, 4F, d), PartPose.ZERO);

@@ -83,3 +83,7 @@ Slot Curios `bodysuit`; oito itens (`jumpsuit*`), tingem com corante (receita de
 - Texturas tingidas têm o sombreado realçado automaticamente; ajuste em `[tint] contrastFloor` na config.
 
 Cores escuras (v1.5.2): a textura tingida é gerada por cor, somando um brilho que acompanha o sombreado, então preto/azul-marinho mantêm os detalhes. Ajuste em `[tint] darkDetail` (0 desliga).
+
+## Colete e faixas (v1.6.0)
+
+Slots Curios `vest` e `waist`. Colete Saiyajin Básico (cor principal + Kit 2) e quatro faixas (Faixa, com Pontas, com Ponta Esquerda, com Ponta Direita). Espessuras em `[accessories]` (acima do macacão). A jaqueta não usa mais o realce de detalhe (`[tint]`).

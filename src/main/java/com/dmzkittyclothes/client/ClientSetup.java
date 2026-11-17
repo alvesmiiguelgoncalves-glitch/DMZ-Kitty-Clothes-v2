@@ -25,6 +25,8 @@ public final class ClientSetup {
         event.registerLayerDefinition(SabJacketModel.LAYER, SabJacketModel::createBodyLayer);
         event.registerLayerDefinition(GlovesModel.LAYER, GlovesModel::createBodyLayer);
         event.registerLayerDefinition(SuitModel.LAYER, SuitModel::createBodyLayer);
+        event.registerLayerDefinition(SuitModel.VEST_LAYER, () -> SuitModel.createBodyLayer(com.dmzkittyclothes.KittyConfig.get(com.dmzkittyclothes.KittyConfig.VEST_THICKNESS)));
+        event.registerLayerDefinition(SuitModel.WAIST_LAYER, () -> SuitModel.createBodyLayer(com.dmzkittyclothes.KittyConfig.get(com.dmzkittyclothes.KittyConfig.WAIST_THICKNESS)));
     }
 
     @SubscribeEvent
@@ -45,6 +47,10 @@ public final class ClientSetup {
             });
             DmzKittyClothes.SUITS.forEach(g -> CuriosRendererRegistry.register(g.get(),
                     () -> new SuitRenderer(new SuitModel(Minecraft.getInstance().getEntityModels().bakeLayer(SuitModel.LAYER)))));
+            DmzKittyClothes.VESTS.forEach(g -> CuriosRendererRegistry.register(g.get(),
+                    () -> new AccessoryRenderer(new SuitModel(Minecraft.getInstance().getEntityModels().bakeLayer(SuitModel.VEST_LAYER)))));
+            DmzKittyClothes.SASHES.forEach(g -> CuriosRendererRegistry.register(g.get(),
+                    () -> new AccessoryRenderer(new SuitModel(Minecraft.getInstance().getEntityModels().bakeLayer(SuitModel.WAIST_LAYER)))));
             // 1 = dyed: the item model switches to the grayscale icon, which is tinted with the dye color.
             ItemProperties.register(DmzKittyClothes.SAB_JACKET.get(), new ResourceLocation(DmzKittyClothes.MOD_ID, "dyed"),
                     (stack, level, entity, seed) -> stack.getItem() instanceof SabJacketItem item && item.hasCustomColor(stack) ? 1.0F : 0.0F);
@@ -60,6 +66,6 @@ public final class ClientSetup {
             return 0xFFFFFF;
         }, DmzKittyClothes.SAB_JACKET.get());
         event.register((stack, tintIndex) -> tintIndex == 0 && stack.getItem() instanceof DyeableLeatherItem d && d.hasCustomColor(stack) ? d.getColor(stack) : 0xFFFFFF,
-                java.util.stream.Stream.concat(DmzKittyClothes.GLOVES.stream(), DmzKittyClothes.SUITS.stream()).map(g -> (net.minecraft.world.level.ItemLike) g.get()).toArray(net.minecraft.world.level.ItemLike[]::new));
+                java.util.stream.Stream.of(DmzKittyClothes.GLOVES, DmzKittyClothes.SUITS, DmzKittyClothes.VESTS, DmzKittyClothes.SASHES).flatMap(java.util.List::stream).map(g -> (net.minecraft.world.level.ItemLike) g.get()).toArray(net.minecraft.world.level.ItemLike[]::new));
     }
 }
