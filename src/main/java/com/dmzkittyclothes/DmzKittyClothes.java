@@ -68,6 +68,19 @@ public class DmzKittyClothes {
         }
     }
 
+    /** Itens de braco (slot "gloves", exibido como "Bracos"), de perna (slot "legs") e cachecois (slot "scarf"). */
+    public static final java.util.List<RegistryObject<Item>> ARM_ITEMS = new java.util.ArrayList<>();
+    public static final java.util.List<RegistryObject<Item>> LEG_ITEMS = new java.util.ArrayList<>();
+    public static final java.util.List<RegistryObject<Item>> SCARVES = new java.util.ArrayList<>();
+    static {
+        ARM_ITEMS.add(ITEMS.register("wristbands", () -> new AccessoryItem(new Item.Properties().stacksTo(1), "wristbands", false, false)));
+        ARM_ITEMS.add(ITEMS.register("arm_wrap", () -> new AccessoryItem(new Item.Properties().stacksTo(1), "arm_wrap", false, false)));
+        ARM_ITEMS.add(ITEMS.register("arm_guard", () -> new AccessoryItem(new Item.Properties().stacksTo(1), "arm_guard", true, false)));
+        LEG_ITEMS.add(ITEMS.register("leg_wrap", () -> new AccessoryItem(new Item.Properties().stacksTo(1), "leg_wrap", false, false)));
+        SCARVES.add(ITEMS.register("long_scarf", () -> new AccessoryItem(new Item.Properties().stacksTo(1), "long_scarf", false, false)));
+        SCARVES.add(ITEMS.register("short_scarf", () -> new AccessoryItem(new Item.Properties().stacksTo(1), "short_scarf", false, false)));
+    }
+
     public static final RegistryObject<CreativeModeTab> TAB = TABS.register("main",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup." + MOD_ID))
@@ -82,6 +95,9 @@ public class DmzKittyClothes {
                         ARMORS.forEach(g -> output.accept(g.get()));
                         SKIRTS.forEach(g -> output.accept(g.get()));
                         SASHES.forEach(g -> output.accept(g.get()));
+                        ARM_ITEMS.forEach(g -> output.accept(g.get()));
+                        LEG_ITEMS.forEach(g -> output.accept(g.get()));
+                        SCARVES.forEach(g -> output.accept(g.get()));
                     })
                     .build());
 
@@ -109,6 +125,8 @@ public class DmzKittyClothes {
             ARMORS.forEach(g -> CauldronInteraction.WATER.put(g.get(), SabJacketItem::washInCauldron));
             SKIRTS.forEach(g -> CauldronInteraction.WATER.put(g.get(), SabJacketItem::washInCauldron));
             SASHES.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
+            java.util.stream.Stream.of(ARM_ITEMS, LEG_ITEMS, SCARVES).flatMap(java.util.List::stream)
+                    .forEach(g -> CauldronInteraction.WATER.put(g.get(), g.getId().getPath().equals("arm_guard") ? SabJacketItem::washInCauldron : CauldronInteraction.DYED_ITEM));
         });
     }
 }

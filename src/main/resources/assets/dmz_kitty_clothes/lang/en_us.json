@@ -10,7 +10,7 @@
   "item.dmz_kitty_clothes.fingerless_gloves": "Fingerless Gloves",
   "item.dmz_kitty_clothes.long_gloves": "Long Gloves",
   "item.dmz_kitty_clothes.long_fingerless_gloves": "Long Fingerless Gloves",
-  "curios.identifier.gloves": "Gloves",
+  "curios.identifier.gloves": "Arms",
   "item.dmz_kitty_clothes.jumpsuit": "Jumpsuit",
   "item.dmz_kitty_clothes.jumpsuit_shorts": "Short-Legged Jumpsuit",
   "item.dmz_kitty_clothes.jumpsuit_short_sleeves": "Short-Sleeved Jumpsuit",
@@ -36,5 +36,13 @@
   "item.dmz_kitty_clothes.saiyan_armor_full": "Saiyan Battle Armor",
   "item.dmz_kitty_clothes.saiyan_skirt_mid": "Saiyan Skirt with Middle Panel",
   "item.dmz_kitty_clothes.saiyan_skirt_side": "Saiyan Skirt without Middle Panel",
-  "curios.identifier.skirt": "Skirt"
+  "curios.identifier.skirt": "Skirt",
+  "item.dmz_kitty_clothes.long_scarf": "Long Scarf",
+  "item.dmz_kitty_clothes.short_scarf": "Short Scarf",
+  "item.dmz_kitty_clothes.wristbands": "Wristbands",
+  "item.dmz_kitty_clothes.arm_wrap": "Arm Cloth Wrap",
+  "item.dmz_kitty_clothes.leg_wrap": "Leg Cloth Wrap",
+  "item.dmz_kitty_clothes.arm_guard": "Arm Guard",
+  "curios.identifier.scarf": "Scarf",
+  "curios.identifier.legs": "Legs"
 }

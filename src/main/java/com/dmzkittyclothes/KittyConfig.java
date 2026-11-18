@@ -17,6 +17,11 @@ public final class KittyConfig {
     public static final ForgeConfigSpec.DoubleValue WAIST_THICKNESS;
     public static final ForgeConfigSpec.DoubleValue ARMOR_THICKNESS;
     public static final ForgeConfigSpec.DoubleValue SUIT_THICKNESS;
+    public static final ForgeConfigSpec.DoubleValue WRIST_THICKNESS;
+    public static final ForgeConfigSpec.DoubleValue ARM_WRAP_THICKNESS;
+    public static final ForgeConfigSpec.DoubleValue ARM_GUARD_THICKNESS;
+    public static final ForgeConfigSpec.DoubleValue LEG_WRAP_THICKNESS;
+    public static final ForgeConfigSpec.DoubleValue SCARF_THICKNESS;
     public static final ForgeConfigSpec.DoubleValue ARM_SCALE_X, ARM_SCALE_Y, ARM_SCALE_Z;
 
     /** {scaleX, scaleY, scaleZ, offsetX, offsetY, offsetZ} */
@@ -69,6 +74,11 @@ public final class KittyConfig {
         VEST_THICKNESS = b.comment("Espessura extra do colete (pixels)").defineInRange("vestThickness", 0.25, 0.0, 1.0);
         WAIST_THICKNESS = b.comment("Espessura extra das faixas/cinto (pixels). A jaqueta usa 0.4 no corpo: abaixo disso a faixa fica por baixo dela").defineInRange("waistThickness", 0.3, 0.0, 1.0);
         ARMOR_THICKNESS = b.comment("Espessura extra da Armadura Saiyajin Completa (corpo e bracos, pixels). Fica acima do macacao (0.15)").defineInRange("armorThickness", 0.3, 0.0, 1.0);
+        WRIST_THICKNESS = b.comment("Espessura das munhequeiras (pixels). Acima da luva (0.2)").defineInRange("wristThickness", 0.25, 0.0, 1.0);
+        ARM_WRAP_THICKNESS = b.comment("Espessura da faixa de pano dos bracos (pixels)").defineInRange("armWrapThickness", 0.28, 0.0, 1.0);
+        ARM_GUARD_THICKNESS = b.comment("Espessura do protetor de braco (pixels). A manga da jaqueta usa 0.33+: para ficar por cima dela, use mais de 0.45").defineInRange("armGuardThickness", 0.32, 0.0, 1.0);
+        LEG_WRAP_THICKNESS = b.comment("Espessura da faixa de pano das pernas (pixels). Acima do macacao (0.15)").defineInRange("legWrapThickness", 0.2, 0.0, 1.0);
+        SCARF_THICKNESS = b.comment("Espessura dos cachecois (pixels). Acima de tudo, menos da jaqueta (corpo 0.4): armadura 0.3, colete 0.25").defineInRange("scarfThickness", 0.35, 0.0, 1.0);
         b.pop();
         extra(b, "waist", "Faixa/quadrado da cintura da jaqueta.", WAIST, 0.98, 1.15, 0.85, 0, 0, 0);
         extra(b, "collar", "Gola (parte em volta do pescoco/cabeca).", COLLAR, 0.98, 1.0, 0.98, 0, -0.1, 0);

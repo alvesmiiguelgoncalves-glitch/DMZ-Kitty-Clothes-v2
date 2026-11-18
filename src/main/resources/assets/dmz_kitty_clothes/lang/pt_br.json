@@ -10,7 +10,7 @@
   "item.dmz_kitty_clothes.fingerless_gloves": "Luvas sem Dedos",
   "item.dmz_kitty_clothes.long_gloves": "Luvas Longas",
   "item.dmz_kitty_clothes.long_fingerless_gloves": "Luvas Longas sem Dedos",
-  "curios.identifier.gloves": "Luvas",
+  "curios.identifier.gloves": "Braços",
   "item.dmz_kitty_clothes.jumpsuit": "Macacão",
   "item.dmz_kitty_clothes.jumpsuit_shorts": "Macacão de Pernas Curtas",
   "item.dmz_kitty_clothes.jumpsuit_short_sleeves": "Macacão de Mangas Curtas",
@@ -36,5 +36,13 @@
   "item.dmz_kitty_clothes.saiyan_armor_full": "Armadura de Batalha Saiyajin",
   "item.dmz_kitty_clothes.saiyan_skirt_mid": "Saia Saiyajin com Parte do Meio",
   "item.dmz_kitty_clothes.saiyan_skirt_side": "Saia Saiyajin sem Parte do Meio",
-  "curios.identifier.skirt": "Saia"
+  "curios.identifier.skirt": "Saia",
+  "item.dmz_kitty_clothes.long_scarf": "Cachecol Longo",
+  "item.dmz_kitty_clothes.short_scarf": "Cachecol Curto",
+  "item.dmz_kitty_clothes.wristbands": "Munhequeiras",
+  "item.dmz_kitty_clothes.arm_wrap": "Faixa de Pano nos Braços",
+  "item.dmz_kitty_clothes.leg_wrap": "Faixa de Pano nas Pernas",
+  "item.dmz_kitty_clothes.arm_guard": "Protetor de Braço",
+  "curios.identifier.scarf": "Cachecol",
+  "curios.identifier.legs": "Pernas"
 }

@@ -25,6 +25,12 @@ public class SuitModel extends HumanoidModel<LivingEntity> {
     public static final ModelLayerLocation WAIST_LAYER = new ModelLayerLocation(
             new ResourceLocation(DmzKittyClothes.MOD_ID, "waist"), "main");
 
+    public static final ModelLayerLocation WRIST_LAYER = new ModelLayerLocation(new ResourceLocation(DmzKittyClothes.MOD_ID, "wrist"), "main");
+    public static final ModelLayerLocation ARM_WRAP_LAYER = new ModelLayerLocation(new ResourceLocation(DmzKittyClothes.MOD_ID, "arm_wrap"), "main");
+    public static final ModelLayerLocation ARM_GUARD_LAYER = new ModelLayerLocation(new ResourceLocation(DmzKittyClothes.MOD_ID, "arm_guard"), "main");
+    public static final ModelLayerLocation LEG_WRAP_LAYER = new ModelLayerLocation(new ResourceLocation(DmzKittyClothes.MOD_ID, "leg_wrap"), "main");
+    public static final ModelLayerLocation SCARF_LAYER = new ModelLayerLocation(new ResourceLocation(DmzKittyClothes.MOD_ID, "scarf"), "main");
+
     public SuitModel(ModelPart root) {
         super(root);
     }

@@ -41,6 +41,12 @@ Este mod aplica um mixin (`VanillaModelSyncMixin`) que deixa o DMZ rodar e depoi
 - A camisa ainda pode aparecer por baixo se a camada de roupa do DMZ for mais grossa que a jaqueta; isso é diferente do problema de pose e precisa ser visto no jogo.
 - Ainda não foi compilado nem testado no jogo.
 
+## v1.2.0
+
+- Novos itens: **Cachecol Longo**, **Cachecol Curto** (slot Cachecol), **Munhequeiras**, **Faixa de Pano nos Braços**, **Protetor de Braço** (2 cores, Kit de Coloração 2) no slot **Braços** (antes "Luvas", mesmo ID `gloves`, agora com 2 espaços) e **Faixa de Pano nas Pernas** (slot Pernas). Espessuras em `KittyConfig` (cachecol 0.35, acima de tudo menos da jaqueta).
+- Ícones dos itens novos são provisórios (recortes das texturas).
+- A capa do DMZ não usa física: é uma animação em seno (`armorcape.animation.json`). Cachecol com balanço ainda não implementado.
+
 ## v1.1.0
 
 - O mod virou **DMZ: Kitty's Clothes** (ID `dmz_kitty_clothes`), para reunir todas as roupas. **Itens antigos `dmz_sab_jacket:sab_jacket` deixam de existir:** pegue a jaqueta de novo com `/give @s dmz_kitty_clothes:sab_jacket`.
