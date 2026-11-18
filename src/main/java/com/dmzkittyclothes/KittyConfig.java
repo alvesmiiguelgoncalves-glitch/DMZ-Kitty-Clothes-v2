@@ -23,7 +23,7 @@ public final class KittyConfig {
     public static final ForgeConfigSpec.DoubleValue LEG_WRAP_THICKNESS;
     public static final ForgeConfigSpec.DoubleValue SCARF_THICKNESS;
     public static final ForgeConfigSpec.BooleanValue SCARF_PHYSICS;
-    public static final ForgeConfigSpec.DoubleValue SCARF_SWING, SCARF_STIFFNESS;
+    public static final ForgeConfigSpec.DoubleValue SCARF_SWING, SCARF_STIFFNESS, SCARF_DEPTH;
     public static final ForgeConfigSpec.DoubleValue ARM_SCALE_X, ARM_SCALE_Y, ARM_SCALE_Z;
 
     /** {scaleX, scaleY, scaleZ, offsetX, offsetY, offsetZ} */
@@ -86,6 +86,7 @@ public final class KittyConfig {
         SCARF_PHYSICS = b.comment("Liga/desliga o balanco da ponta do cachecol").define("physics", true);
         SCARF_SWING = b.comment("Quanto a ponta balanca (1.0 = padrao, 0.5 = metade, 0 = parada)").defineInRange("swing", 1.0, 0.0, 3.0);
         SCARF_STIFFNESS = b.comment("Rigidez da mola: maior = volta ao lugar mais rapido; menor = mais molenga/lenta").defineInRange("stiffness", 30.0, 2.0, 200.0);
+        SCARF_DEPTH = b.comment("Espessura das pontas do cachecol longo em pixels (1.0 = 1 px; 0.5 = metade)").defineInRange("depth", 0.5, 0.1, 3.0);
         b.pop();
         extra(b, "waist", "Faixa/quadrado da cintura da jaqueta.", WAIST, 0.98, 1.15, 0.85, 0, 0, 0);
         extra(b, "collar", "Gola (parte em volta do pescoco/cabeca).", COLLAR, 0.98, 1.0, 0.98, 0, -0.1, 0);
