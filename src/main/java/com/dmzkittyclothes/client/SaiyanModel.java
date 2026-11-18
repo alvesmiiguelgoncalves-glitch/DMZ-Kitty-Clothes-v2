@@ -63,7 +63,7 @@ public class SaiyanModel extends SuitModel {
         root.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(5F, 2F, 0F));
         body.addOrReplaceChild("panel_r", CubeListBuilder.create().texOffs(51, 50).addBox(-2F, -2F, -2F, 1F, 8F, 4F),
                 PartPose.offsetAndRotation(-2.85F, 10.65F, 0F, 0F, 0F, (float) Math.toRadians(7.5)));
-        body.addOrReplaceChild("panel_l", CubeListBuilder.create().texOffs(51, 50).addBox(-1F, -2F, -2F, 1F, 8F, 4F),
+        body.addOrReplaceChild("panel_l", CubeListBuilder.create().texOffs(51, 50).mirror().addBox(-1F, -2F, -2F, 1F, 8F, 4F),
                 PartPose.offsetAndRotation(4.8F, 10.25F, 0F, 0F, 0F, (float) Math.toRadians(-7.5)));
         if (middle) {
             body.addOrReplaceChild("panel_f", CubeListBuilder.create().texOffs(3, 56).addBox(-2F, -2F, -1F, 5F, 7F, 1F),
