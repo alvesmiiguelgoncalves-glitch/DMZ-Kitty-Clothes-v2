@@ -69,7 +69,7 @@ public final class ClientSetup {
                         case "wristbands" -> SuitModel.WRIST_LAYER;
                         case "arm_wrap" -> SuitModel.ARM_WRAP_LAYER;
                         default -> SuitModel.ARM_GUARD_LAYER;
-                    }))));
+                    })))));
             DmzKittyClothes.LEG_ITEMS.forEach(g -> CuriosRendererRegistry.register(g.get(),
                     () -> new AccessoryRenderer(new SuitModel(Minecraft.getInstance().getEntityModels().bakeLayer(SuitModel.LEG_WRAP_LAYER)))));
             DmzKittyClothes.SCARVES.forEach(g -> CuriosRendererRegistry.register(g.get(),
