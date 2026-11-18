@@ -55,6 +55,9 @@ public class ScarfRenderer implements ICurioRenderer {
         float depth = KittyConfig.get(KittyConfig.SCARF_DEPTH);
         model.tail.zScale = depth;
         model.frontTail.zScale = depth;
+        float raise = KittyConfig.get(KittyConfig.SCARF_RAISE);
+        model.tail.y = 1F - raise;
+        model.frontTail.y = 1F - raise;
 
         boolean dyed = item.hasCustomColor(stack);
         // sem tinta: multiplicacao simples por branco = textura original
