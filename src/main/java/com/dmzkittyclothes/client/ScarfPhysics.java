@@ -22,7 +22,7 @@ public final class ScarfPhysics {
     }
 
     /** @return {xRot, zRot} da ponta de tras e {xRot, zRot} da ponta da frente, em radianos. */
-    public static float[] update(LivingEntity e, float partial, float swing, float stiffness) {
+    public static float[] update(LivingEntity e, float partial, float swing, float stiffness, boolean charging) {
         State s = STATES.computeIfAbsent(e, k -> new State());
         float now = (e.tickCount + partial) / 20F;
         float dt = Float.isNaN(s.time) ? 0F : now - s.time;
@@ -41,13 +41,21 @@ public final class ScarfPhysics {
         double forward = vx * -Math.sin(yaw) + vz * Math.cos(yaw);
         double side = vx * Math.cos(yaw) + vz * Math.sin(yaw); // + = para a esquerda do jogador
 
-        float targetX = 6F + clamp((float) (forward * 140D), 0F, 55F) + clamp((float) (-vy * 35D), 0F, 30F)
+        float targetX = 3F + clamp((float) (forward * 90D), 0F, 40F) + clamp((float) (-vy * 35D), 0F, 30F)
                 + (float) Math.sin(now * 1.3F) * 2F;
         float targetZ = clamp((float) (side * 120D), -25F, 25F);
         // ponta da frente: encosta no corpo quando corre pra frente; vai pra frente (xRot < 0) ao andar de re ou subir
         float frontX = -(2F + clamp((float) (-forward * 140D), 0F, 40F) + clamp((float) (vy * 35D), 0F, 25F))
                 - (float) Math.sin(now * 1.1F + 1.5F) * 1.5F;
         frontX = Math.min(frontX, 0F);
+        float targetZ0 = targetZ;
+        if (charging) {
+            // carregando ki: o vento da aura levanta e agita as pontas
+            targetX = 40F + (float) Math.sin(now * 6F) * 15F;
+            targetZ0 = (float) Math.sin(now * 4.7F) * 14F;
+            frontX = -(28F + (float) Math.sin(now * 5.3F + 1F) * 12F);
+        }
+        targetZ = targetZ0;
         targetX *= swing;
         targetZ *= swing;
         frontX *= swing;

@@ -40,13 +40,13 @@ public class ScarfRenderer implements ICurioRenderer {
 
         if (KittyConfig.getBool(KittyConfig.SCARF_PHYSICS)) {
             float[] a = ScarfPhysics.update(slotContext.entity(), partialTicks,
-                    KittyConfig.get(KittyConfig.SCARF_SWING), KittyConfig.get(KittyConfig.SCARF_STIFFNESS));
+                    KittyConfig.get(KittyConfig.SCARF_SWING), KittyConfig.get(KittyConfig.SCARF_STIFFNESS), chargingKi(slotContext.entity()));
             model.tail.xRot = a[0];
             model.tail.zRot = a[1];
             model.frontTail.xRot = a[2];
             model.frontTail.zRot = a[3];
         } else {
-            model.tail.xRot = (float) Math.toRadians(6);
+            model.tail.xRot = (float) Math.toRadians(3);
             model.tail.zRot = 0F;
             model.frontTail.xRot = (float) Math.toRadians(-2);
             model.frontTail.zRot = 0F;
@@ -73,6 +73,17 @@ public class ScarfRenderer implements ICurioRenderer {
         draw(buffer, frontTex, foil, poseStack, light);
         model.tail.visible = true;
         model.body.skipDraw = false;
+    }
+
+    /** DMZ: carregando ki (StatsData.getStatus().isChargingKi()). Qualquer falha = nao esta carregando. */
+    private static boolean chargingKi(LivingEntity e) {
+        if (!(e instanceof net.minecraft.world.entity.player.Player p)) return false;
+        try {
+            com.dragonminez.common.stats.StatsData d = com.dragonminez.common.stats.StatsProvider.get(com.dragonminez.common.stats.StatsCapability.INSTANCE, p).orElse(null);
+            return d != null && d.getStatus().isChargingKi();
+        } catch (Throwable t) {
+            return false;
+        }
     }
 
     private void draw(MultiBufferSource buffer, ResourceLocation tex, boolean foil, PoseStack poseStack, int light) {

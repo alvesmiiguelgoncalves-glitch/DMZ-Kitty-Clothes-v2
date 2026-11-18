@@ -32,8 +32,12 @@ public final class TintTextures {
         return get(src, color, true);
     }
 
-    /** Retangulos de pixels {x0,y0,x1,y1} (x1/y1 exclusivos): keep=true mantem so o que esta dentro; keep=false apaga o que esta dentro. */
-    public record Region(boolean keep, int[]... rects) {
+    /**
+     * Retangulos de pixels {x0,y0,x1,y1} (x1/y1 exclusivos): keep=true mantem so o que esta dentro; keep=false apaga o que esta dentro.
+     * fills: {x0,y0,x1,y1, origemX,origemY, sombra%} pinta o retangulo com a cor (ja tingida) do pixel de origem, escurecida pela sombra.
+     * Serve para dar cor as laterais de pecas com espessura, que nao existem na textura original.
+     */
+    public record Region(boolean keep, int[][] rects, int[][] fills) {
         boolean drops(int x, int y) {
             boolean inside = false;
             for (int[] r : rects) {
@@ -47,7 +51,8 @@ public final class TintTextures {
 
         String key() {
             StringBuilder sb = new StringBuilder(keep ? "k" : "d");
-            for (int[] r : rects) sb.append('_').append(r[0]).append('_').append(r[1]).append('_').append(r[2]).append('_').append(r[3]);
+            for (int[] r : rects) for (int v : r) sb.append('_').append(v);
+            for (int[] r : fills) for (int v : r) sb.append('f').append(v);
             return sb.toString();
         }
     }
@@ -118,6 +123,20 @@ public final class TintTextures {
                     int b = clamp((cb * m + lift * n) * 255F);
                     // ABGR
                     out.setPixelRGBA(x, y, (a << 24) | (b << 16) | (g << 8) | r);
+                }
+            }
+            if (region != null) {
+                for (int[] f : region.fills()) {
+                    int sp = out.getPixelRGBA(f[4], f[5]);
+                    int sa = sp >>> 24;
+                    if (sa == 0) continue;
+                    float sh = f[6] / 100F;
+                    int fr = clamp((sp & 0xFF) * sh), fg = clamp(((sp >> 8) & 0xFF) * sh), fb = clamp(((sp >> 16) & 0xFF) * sh);
+                    for (int y = f[1]; y < f[3]; y++) {
+                        for (int x = f[0]; x < f[2]; x++) {
+                            out.setPixelRGBA(x, y, (sa << 24) | (fb << 16) | (fg << 8) | fr);
+                        }
+                    }
                 }
             }
             ResourceLocation id = new ResourceLocation(DmzKittyClothes.MOD_ID, "tint/" + src.getPath().replace('/', '_').replace(".png", "") + "_" + Integer.toHexString(rgb | 0x1000000).substring(1) + (enhance ? "" : "p") + (region == null ? "" : "_" + region.key()));
