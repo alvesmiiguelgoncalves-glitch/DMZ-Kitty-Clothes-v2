@@ -32,8 +32,33 @@ public final class TintTextures {
         return get(src, color, true);
     }
 
+    /** Retangulos de pixels {x0,y0,x1,y1} (x1/y1 exclusivos): keep=true mantem so o que esta dentro; keep=false apaga o que esta dentro. */
+    public record Region(boolean keep, int[]... rects) {
+        boolean drops(int x, int y) {
+            boolean inside = false;
+            for (int[] r : rects) {
+                if (x >= r[0] && x < r[2] && y >= r[1] && y < r[3]) {
+                    inside = true;
+                    break;
+                }
+            }
+            return inside != keep;
+        }
+
+        String key() {
+            StringBuilder sb = new StringBuilder(keep ? "k" : "d");
+            for (int[] r : rects) sb.append('_').append(r[0]).append('_').append(r[1]).append('_').append(r[2]).append('_').append(r[3]);
+            return sb.toString();
+        }
+    }
+
     /** enhance=false: multiplicacao simples pelo cinza original (usado na jaqueta). */
     public static ResourceLocation get(ResourceLocation src, int color, boolean enhance) {
+        return get(src, color, enhance, null);
+    }
+
+    /** Como {@link #get(ResourceLocation, int, boolean)}, mas deixando so uma parte da textura (ex.: separar a cauda do cachecol). */
+    public static ResourceLocation get(ResourceLocation src, int color, boolean enhance, Region region) {
         float floor = KittyConfig.get(KittyConfig.TINT_FLOOR);
         float dark = KittyConfig.get(KittyConfig.TINT_DARK_DETAIL);
         float cf = KittyConfig.get(KittyConfig.TINT_COLOR_FLOOR);
@@ -44,7 +69,7 @@ public final class TintTextures {
             cachedColorFloor = cf;
         }
         int rgb = color & 0xFFFFFF;
-        return CACHE.computeIfAbsent(src + "#" + rgb + (enhance ? "" : "p"), k -> build(src, rgb, floor, dark, enhance));
+        return CACHE.computeIfAbsent(src + "#" + rgb + (enhance ? "" : "p") + (region == null ? "" : "@" + region.key()), k -> build(src, rgb, floor, dark, enhance, region));
     }
 
     private static int clamp(float v) {
@@ -57,7 +82,7 @@ public final class TintTextures {
         CACHE.clear();
     }
 
-    private static ResourceLocation build(ResourceLocation src, int rgb, float floor, float dark, boolean enhance) {
+    private static ResourceLocation build(ResourceLocation src, int rgb, float floor, float dark, boolean enhance, Region region) {
         float colorFloor = KittyConfig.get(KittyConfig.TINT_COLOR_FLOOR);
         float cr = (rgb >> 16 & 0xFF) / 255F, cg = (rgb >> 8 & 0xFF) / 255F, cb = (rgb & 0xFF) / 255F;
         float lum = 0.299F * cr + 0.587F * cg + 0.114F * cb;
@@ -83,6 +108,7 @@ public final class TintTextures {
                     int p = img.getPixelRGBA(x, y);
                     int a = p >>> 24;
                     if (a == 0) continue;
+                    if (region != null && region.drops(x, y)) continue;
                     float n = max > min ? (float) ((p & 0xFF) - min) / (max - min) : 1F;
                     // preto: cinza esticado (floor); outras cores: realce mais leve (colorFloor)
                     float m = !enhance ? (p & 0xFF) / 255F : black ? floor + (1F - floor) * n : colorFloor + (1F - colorFloor) * n;
@@ -94,7 +120,7 @@ public final class TintTextures {
                     out.setPixelRGBA(x, y, (a << 24) | (b << 16) | (g << 8) | r);
                 }
             }
-            ResourceLocation id = new ResourceLocation(DmzKittyClothes.MOD_ID, "tint/" + src.getPath().replace('/', '_').replace(".png", "") + "_" + Integer.toHexString(rgb | 0x1000000).substring(1) + (enhance ? "" : "p"));
+            ResourceLocation id = new ResourceLocation(DmzKittyClothes.MOD_ID, "tint/" + src.getPath().replace('/', '_').replace(".png", "") + "_" + Integer.toHexString(rgb | 0x1000000).substring(1) + (enhance ? "" : "p") + (region == null ? "" : "_" + region.key()));
             Minecraft.getInstance().getTextureManager().register(id, new DynamicTexture(out));
             return id;
         } catch (IOException e) {
