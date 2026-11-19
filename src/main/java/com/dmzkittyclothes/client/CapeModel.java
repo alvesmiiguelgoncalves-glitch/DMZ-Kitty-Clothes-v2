@@ -14,8 +14,9 @@ import net.minecraft.resources.ResourceLocation;
 /**
  * Capa do Piccolo (textura 64x64 do usuario):
  * - capa: 3 segmentos de 12 de largura (6+6+8 de altura), face de tras em x9-20, y32-51; cada segmento pendura no de cima (fisica em cadeia);
+ * - a faixa e o colar ficam presos na CABECA (giram junto com ela, entao a cabeca nao atravessa a gola);
  * - faixa (band): caixa 8x5x4 no pescoco (UV do corpo: topo em (20,16), laterais a partir de y20);
- * - colar: peca de baixo = laje 8x2x8 (rede em (32,0)) e peca de cima = 6x4x5 (rede em (44,37)).
+ * - colar: peca de baixo = laje 8x2x8 (rede em (32,0)) e peca de cima = 6x4x5 (rede em (42,37)).
  */
 public class CapeModel extends SuitModel {
 
@@ -27,9 +28,9 @@ public class CapeModel extends SuitModel {
 
     public CapeModel(ModelPart root) {
         super(root);
-        this.collarBase = this.body.getChild("collar_base");
-        this.collarTop = this.body.getChild("collar_top");
-        this.band = this.body.getChild("band");
+        this.collarBase = this.head.getChild("collar_base");
+        this.collarTop = this.head.getChild("collar_top");
+        this.band = this.head.getChild("band");
         this.padR = this.rightArm.getChild("pad");
         this.padL = this.leftArm.getChild("pad");
         this.cape1 = this.body.getChild("cape1");
@@ -68,21 +69,21 @@ public class CapeModel extends SuitModel {
     public static LayerDefinition createLayer() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
+        PartDefinition head = root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
         root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
         // colar, peca de baixo: laje 8x2x8, UV da 2a camada da cabeca (topo (40,0), laterais a partir de y8), sobre os ombros
-        body.addOrReplaceChild("collar_base", CubeListBuilder.create().texOffs(32, 0).addBox(-4F, -1F, -4F, 8F, 2F, 8F, new CubeDeformation(0.3F)), PartPose.offset(0F, 1F, 0F));
-        // colar, peca de cima: 6x4x5, rede em (44,37); inflada para aparecer em volta do pescoco
-        body.addOrReplaceChild("collar_top", CubeListBuilder.create().texOffs(44, 37).addBox(-3F, -2F, -2.5F, 6F, 4F, 5F, new CubeDeformation(0.8F)), PartPose.offset(0F, 0F, 0F));
+        head.addOrReplaceChild("collar_base", CubeListBuilder.create().texOffs(32, 0).addBox(-4F, -1F, -4F, 8F, 2F, 8F, new CubeDeformation(0.3F)), PartPose.offset(0F, 1F, 0F));
+        // colar, peca de cima: 6x4x5, rede em (42,37); inflada para aparecer em volta do pescoco
+        head.addOrReplaceChild("collar_top", CubeListBuilder.create().texOffs(42, 37).addBox(-3F, -2F, -2.5F, 6F, 4F, 5F, new CubeDeformation(0.8F)), PartPose.offset(0F, 0F, 0F));
         // faixa do peito/ombros: caixa 8x5x4, UV do corpo (topo (20,16), laterais a partir de y20)
-        body.addOrReplaceChild("band", CubeListBuilder.create().texOffs(16, 16).addBox(-4F, 0F, -2F, 8F, 5F, 4F, new CubeDeformation(0.5F)), PartPose.ZERO);
+        head.addOrReplaceChild("band", CubeListBuilder.create().texOffs(16, 16).addBox(-4F, 0F, -2F, 8F, 5F, 4F, new CubeDeformation(0.5F)), PartPose.ZERO);
         PartDefinition right = root.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-5F, 2F, 0F));
         PartDefinition left = root.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(5F, 2F, 0F));
-        // ombreiras: 6x4x5, rede em (44,37); a esquerda usa a mesma textura espelhada
-        right.addOrReplaceChild("pad", CubeListBuilder.create().texOffs(44, 37).addBox(-2F, -2F, -2F, 6F, 4F, 5F, new CubeDeformation(0.2F)),
+        // ombreiras: 6x4x5, rede em (42,37); a esquerda usa a mesma textura espelhada
+        right.addOrReplaceChild("pad", CubeListBuilder.create().texOffs(42, 37).addBox(-2F, -2F, -2F, 6F, 4F, 5F, new CubeDeformation(0.2F)),
                 PartPose.offsetAndRotation(-2.7F, -0.75F, -0.5F, 0F, 0F, (float) Math.toRadians(7.5)));
-        left.addOrReplaceChild("pad", CubeListBuilder.create().texOffs(44, 37).mirror().addBox(-1F, -2F, -2.5F, 6F, 4F, 5F, new CubeDeformation(0.2F)),
+        left.addOrReplaceChild("pad", CubeListBuilder.create().texOffs(42, 37).mirror().addBox(-1F, -2F, -2.5F, 6F, 4F, 5F, new CubeDeformation(0.2F)),
                 PartPose.offsetAndRotation(-0.25F, -0.35F, 0F, 0F, 0F, (float) Math.toRadians(-7.5)));
         root.addOrReplaceChild("right_leg", CubeListBuilder.create(), PartPose.offset(-1.9F, 12F, 0F));
         root.addOrReplaceChild("left_leg", CubeListBuilder.create(), PartPose.offset(1.9F, 12F, 0F));

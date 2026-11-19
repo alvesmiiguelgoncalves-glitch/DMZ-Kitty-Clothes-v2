@@ -48,6 +48,7 @@ public class CapeRenderer implements ICurioRenderer {
         model.young = false;
         model.crouching = base.crouching;
         model.followPose(base);
+        model.head.visible = true; // a gola esta presa na cabeca (followPose esconde a cabeca por padrao)
 
         model.collarBase.visible = KittyConfig.getBool(KittyConfig.CAPE_SHOW_COLLAR);
         model.collarTop.visible = model.collarBase.visible && KittyConfig.getBool(KittyConfig.CAPE_SHOW_COLLAR_TOP);
