@@ -48,6 +48,8 @@ public class CapeRenderer implements ICurioRenderer {
         model.young = false;
         model.crouching = base.crouching;
         model.followPose(base);
+        // a gola esta presa na cabeca: followPose NAO copia a cabeca (so corpo, bracos e pernas), entao sem esta linha a gola fica parada na origem
+        model.head.copyFrom(base.head);
         model.head.visible = true; // a gola esta presa na cabeca (followPose esconde a cabeca por padrao)
 
         model.collarBase.visible = KittyConfig.getBool(KittyConfig.CAPE_SHOW_COLLAR);
