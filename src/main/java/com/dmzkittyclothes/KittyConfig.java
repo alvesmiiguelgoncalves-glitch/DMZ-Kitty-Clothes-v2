@@ -29,6 +29,12 @@ public final class KittyConfig {
     /** {scaleX, scaleY, scaleZ, offsetX, offsetY, offsetZ} */
     public static final ForgeConfigSpec.DoubleValue[] WAIST = new ForgeConfigSpec.DoubleValue[6];
     public static final ForgeConfigSpec.DoubleValue[] COLLAR = new ForgeConfigSpec.DoubleValue[6];
+    public static final ForgeConfigSpec.DoubleValue[] CAPE_COLLAR = new ForgeConfigSpec.DoubleValue[6];
+    public static final ForgeConfigSpec.DoubleValue[] CAPE_TURBAN = new ForgeConfigSpec.DoubleValue[6];
+    public static final ForgeConfigSpec.DoubleValue[] CAPE_PADS = new ForgeConfigSpec.DoubleValue[6];
+    public static final ForgeConfigSpec.DoubleValue[] CAPE_BODY = new ForgeConfigSpec.DoubleValue[6];
+    public static final ForgeConfigSpec.BooleanValue CAPE_SHOW_COLLAR, CAPE_SHOW_TURBAN, CAPE_SHOW_PADS, CAPE_PHYSICS;
+    public static final ForgeConfigSpec.DoubleValue CAPE_SWING, CAPE_STIFFNESS, CAPE_DEPTH;
 
     private static void extra(ForgeConfigSpec.Builder b, String name, String comment, ForgeConfigSpec.DoubleValue[] out, double... d) {
         b.comment(comment, "Escala 1.0 = tamanho original; a escala parte do centro da peca. Deslocamentos em pixels.").push(name);
@@ -79,7 +85,7 @@ public final class KittyConfig {
         WRIST_THICKNESS = b.comment("Espessura das munhequeiras (pixels). Acima da luva (0.2)").defineInRange("wristThickness", 0.25, 0.0, 1.0);
         ARM_WRAP_THICKNESS = b.comment("Espessura da faixa de pano dos bracos (pixels)").defineInRange("armWrapThickness", 0.28, 0.0, 1.0);
         ARM_GUARD_THICKNESS = b.comment("Espessura do protetor de braco (pixels). A manga da jaqueta usa 0.33+: para ficar por cima dela, use mais de 0.45").defineInRange("armGuardThickness", 0.32, 0.0, 1.0);
-        LEG_WRAP_THICKNESS = b.comment("Espessura da faixa de pano das pernas (pixels). Acima do macacao (0.15)").defineInRange("legWrapThickness", 0.2, 0.0, 1.0);
+        LEG_WRAP_THICKNESS = b.comment("Espessura da faixa de pano das pernas (pixels). Acima do macacao (0.15) e das botas (0.18)").defineInRange("legWrapThickness", 0.3, 0.0, 1.0);
         SCARF_THICKNESS = b.comment("Espessura dos cachecois (pixels). Acima de tudo, menos da jaqueta (corpo 0.4): armadura 0.3, colete 0.25").defineInRange("scarfThickness", 0.35, 0.0, 1.0);
         b.pop();
         b.comment("Fisica da ponta do cachecol longo (vale na hora, sem reiniciar).").push("scarf");
@@ -88,6 +94,19 @@ public final class KittyConfig {
         SCARF_STIFFNESS = b.comment("Rigidez da mola: maior = volta ao lugar mais rapido; menor = mais molenga/lenta").defineInRange("stiffness", 30.0, 2.0, 200.0);
         SCARF_DEPTH = b.comment("Espessura das pontas do cachecol longo em pixels (1.0 = 1 px; 0.5 = metade)").defineInRange("depth", 0.5, 0.1, 3.0);
         SCARF_RAISE = b.comment("Sobe as pontas do cachecol longo (pixels). Aumente se aparecer roupa entre o pescoco e a ponta").defineInRange("raise", 0.7, -3.0, 4.0);
+        b.pop();
+        b.comment("Capa do Piccolo (slot Costas). Cada parte tem escala e deslocamento, como a jaqueta.").push("cape");
+        CAPE_SHOW_COLLAR = b.comment("Mostrar o colar do pescoco").define("showCollar", true);
+        CAPE_SHOW_TURBAN = b.comment("Mostrar a faixa/turbante da cabeca").define("showTurban", true);
+        CAPE_SHOW_PADS = b.comment("Mostrar as ombreiras").define("showPads", true);
+        CAPE_PHYSICS = b.comment("Liga/desliga a fisica da capa").define("physics", true);
+        CAPE_SWING = b.comment("Quanto a capa balanca (1.0 = padrao, 0 = parada)").defineInRange("swing", 1.0, 0.0, 3.0);
+        CAPE_STIFFNESS = b.comment("Rigidez da mola: maior = volta mais rapido; menor = mais lenta/molenga").defineInRange("stiffness", 22.0, 2.0, 200.0);
+        CAPE_DEPTH = b.comment("Espessura do tecido da capa (pixels)").defineInRange("depth", 0.15, 0.05, 2.0);
+        extra(b, "collar", "Colar do pescoco.", CAPE_COLLAR, 1, 1, 1, 0, 0, 0);
+        extra(b, "turban", "Faixa/turbante da cabeca.", CAPE_TURBAN, 1, 1, 1, 0, 0, 0);
+        extra(b, "pads", "Ombreiras (o deslocamento lado a lado afasta as duas igualmente).", CAPE_PADS, 1, 1, 1, 0, 0, 0);
+        extra(b, "body", "Capa (os 3 segmentos juntos): Largura/Altura(comprimento)/Profundidade e posicao.", CAPE_BODY, 1, 1, 1, 0, 0, 0);
         b.pop();
         extra(b, "waist", "Faixa/quadrado da cintura da jaqueta.", WAIST, 0.98, 1.15, 0.85, 0, 0, 0);
         extra(b, "collar", "Gola (parte em volta do pescoco/cabeca).", COLLAR, 0.98, 1.0, 0.98, 0, -0.1, 0);

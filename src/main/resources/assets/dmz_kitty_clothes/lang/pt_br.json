@@ -44,5 +44,7 @@
   "item.dmz_kitty_clothes.leg_wrap": "Faixa de Pano nas Pernas",
   "item.dmz_kitty_clothes.arm_guard": "Protetor de Braço",
   "curios.identifier.scarf": "Cachecol",
-  "curios.identifier.legs": "Pernas"
+  "curios.identifier.legs": "Pernas",
+  "item.dmz_kitty_clothes.piccolo_cape": "Capa do Piccolo",
+  "curios.identifier.cape": "Costas"
 }

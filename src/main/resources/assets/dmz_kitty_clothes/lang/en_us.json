@@ -44,5 +44,7 @@
   "item.dmz_kitty_clothes.leg_wrap": "Leg Cloth Wrap",
   "item.dmz_kitty_clothes.arm_guard": "Arm Guard",
   "curios.identifier.scarf": "Scarf",
-  "curios.identifier.legs": "Legs"
+  "curios.identifier.legs": "Legs",
+  "item.dmz_kitty_clothes.piccolo_cape": "Piccolo's Cape",
+  "curios.identifier.cape": "Back"
 }

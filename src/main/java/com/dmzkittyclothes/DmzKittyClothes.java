@@ -72,6 +72,11 @@ public class DmzKittyClothes {
     public static final java.util.List<RegistryObject<Item>> ARM_ITEMS = new java.util.ArrayList<>();
     public static final java.util.List<RegistryObject<Item>> LEG_ITEMS = new java.util.ArrayList<>();
     public static final java.util.List<RegistryObject<Item>> SCARVES = new java.util.ArrayList<>();
+    /** Capas (slot "cape", exibido como "Costas"). */
+    public static final java.util.List<RegistryObject<Item>> CAPES = new java.util.ArrayList<>();
+    static {
+        CAPES.add(ITEMS.register("piccolo_cape", () -> new AccessoryItem(new Item.Properties().stacksTo(1), "piccolo_cape", false, false)));
+    }
     static {
         ARM_ITEMS.add(ITEMS.register("wristbands", () -> new AccessoryItem(new Item.Properties().stacksTo(1), "wristbands", false, false)));
         ARM_ITEMS.add(ITEMS.register("arm_wrap", () -> new AccessoryItem(new Item.Properties().stacksTo(1), "arm_wrap", false, false)));
@@ -98,6 +103,7 @@ public class DmzKittyClothes {
                         ARM_ITEMS.forEach(g -> output.accept(g.get()));
                         LEG_ITEMS.forEach(g -> output.accept(g.get()));
                         SCARVES.forEach(g -> output.accept(g.get()));
+                        CAPES.forEach(g -> output.accept(g.get()));
                     })
                     .build());
 
@@ -125,7 +131,7 @@ public class DmzKittyClothes {
             ARMORS.forEach(g -> CauldronInteraction.WATER.put(g.get(), SabJacketItem::washInCauldron));
             SKIRTS.forEach(g -> CauldronInteraction.WATER.put(g.get(), SabJacketItem::washInCauldron));
             SASHES.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
-            java.util.stream.Stream.of(ARM_ITEMS, LEG_ITEMS, SCARVES).flatMap(java.util.List::stream)
+            java.util.stream.Stream.of(ARM_ITEMS, LEG_ITEMS, SCARVES, CAPES).flatMap(java.util.List::stream)
                     .forEach(g -> CauldronInteraction.WATER.put(g.get(), g.getId().getPath().equals("arm_guard") ? SabJacketItem::washInCauldron : CauldronInteraction.DYED_ITEM));
         });
     }
