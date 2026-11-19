@@ -85,9 +85,9 @@ public class CapeRenderer implements ICurioRenderer {
 
         boolean dyed = item != null ? item.hasCustomColor(stack) : com.dmzkittyclothes.WeightCapeDye.hasColor(stack);
         int dyeColor = item != null ? (dyed ? item.getColor(stack) : 0xFFFFFF) : com.dmzkittyclothes.WeightCapeDye.getColor(stack);
-        ResourceLocation base = item != null ? item.mainTexture() : WEIGHT_CAPE_TEXTURE;
+        ResourceLocation srcTex = item != null ? item.mainTexture() : WEIGHT_CAPE_TEXTURE;
         // com tinta: realce normal; sem tinta: multiplicacao por branco = textura original (so para poder pintar as bordas)
-        ResourceLocation tex = TintTextures.get(base, dyed ? dyeColor : 0xFFFFFF, dyed, CapeModel.EDGES);
+        ResourceLocation tex = TintTextures.get(srcTex, dyed ? dyeColor : 0xFFFFFF, dyed, CapeModel.EDGES);
         VertexConsumer consumer = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.armorCutoutNoCull(tex), false, stack.hasFoil());
         model.renderToBuffer(poseStack, consumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
