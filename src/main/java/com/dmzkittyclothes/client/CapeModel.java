@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
  * - capa: 3 segmentos de 12 de largura (6+6+8 de altura), face de tras em x9-20, y32-51; cada segmento pendura no de cima (fisica em cadeia);
  * - o colar fica preso na CABECA (a cabeca nao atravessa a gola); a faixa (textura do torso) fica presa no CORPO, separada do colar;
  * - faixa (band): caixa 8x5x4 no pescoco (UV do corpo: topo em (20,16), laterais a partir de y20);
- * - colar: peca de baixo = laje 8x2x8 (rede em (32,0)) e peca de cima = 6x4x5 (rede em (42,37)).
+ * - colar: peca de baixo = laje 8x2x8 (rede em (32,0)) e peca de cima = 6x2x6 (mesma rede do colar de baixo, em (32,0)).
  */
 public class CapeModel extends SuitModel {
 
@@ -74,8 +74,8 @@ public class CapeModel extends SuitModel {
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
         // colar, peca de baixo: laje 8x2x8, UV da 2a camada da cabeca (topo (40,0), laterais a partir de y8), sobre os ombros
         head.addOrReplaceChild("collar_base", CubeListBuilder.create().texOffs(32, 0).addBox(-4F, -1F, -4F, 8F, 2F, 8F, new CubeDeformation(0.3F)), PartPose.offset(0F, 1F, 0F));
-        // colar, peca de cima: 6x4x5, rede em (42,37); inflada para aparecer em volta do pescoco
-        head.addOrReplaceChild("collar_top", CubeListBuilder.create().texOffs(42, 37).addBox(-3F, -2F, -2.5F, 6F, 4F, 5F, new CubeDeformation(0.8F)), PartPose.offset(0F, 0F, 0F));
+        // colar, peca de cima: mesma textura do colar de baixo (rede em (32,0)); caixa 6x2x6 inflada para aparecer em volta do pescoco
+        head.addOrReplaceChild("collar_top", CubeListBuilder.create().texOffs(32, 0).addBox(-3F, -1F, -3F, 6F, 2F, 6F, new CubeDeformation(0.8F)), PartPose.offset(0F, 0F, 0F));
         // faixa do peito/ombros: caixa 8x5x4, UV do corpo (topo (20,16), laterais a partir de y20)
         body.addOrReplaceChild("band", CubeListBuilder.create().texOffs(16, 16).addBox(-4F, 0F, -2F, 8F, 5F, 4F, new CubeDeformation(0.5F)), PartPose.ZERO);
         PartDefinition right = root.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-5F, 2F, 0F));
