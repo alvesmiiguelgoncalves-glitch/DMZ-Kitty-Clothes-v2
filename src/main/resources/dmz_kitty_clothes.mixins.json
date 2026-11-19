@@ -4,10 +4,13 @@
   "package": "com.dmzkittyclothes.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "dmz_kitty_clothes.refmap.json",
-  "mixins": [],
+  "mixins": [
+    "GravityLogicMixin"
+  ],
   "client": [
     "VanillaModelSyncMixin",
-    "BoneVisibilityMixin"
+    "BoneVisibilityMixin",
+    "WeightCapeLayerMixin"
   ],
   "server": [],
   "injectors": {

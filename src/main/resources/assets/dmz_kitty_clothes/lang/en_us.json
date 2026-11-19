@@ -46,5 +46,7 @@
   "curios.identifier.scarf": "Scarf",
   "curios.identifier.legs": "Legs",
   "item.dmz_kitty_clothes.piccolo_cape": "Piccolo's Cape",
-  "curios.identifier.cape": "Back"
+  "curios.identifier.cape": "Back",
+  "key.dmz_kitty_clothes.toggle_tail": "Tie/untie tail",
+  "key.categories.dmz_kitty_clothes": "DMZ: Kitty's Clothes"
 }

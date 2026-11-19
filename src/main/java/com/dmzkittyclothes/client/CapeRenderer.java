@@ -22,6 +22,8 @@ import top.theillusivec4.curios.api.client.ICurioRenderer;
 /** Capa do Piccolo (slot Costas): faixa, colar e capa com fisica; tudo ajustavel na config [cape]. */
 public class CapeRenderer implements ICurioRenderer {
 
+    private static final ResourceLocation WEIGHT_CAPE_TEXTURE = new ResourceLocation(com.dmzkittyclothes.DmzKittyClothes.MOD_ID, "textures/models/piccolo_cape.png");
+
     private final CapeModel model;
 
     public CapeRenderer(CapeModel model) {
@@ -42,7 +44,8 @@ public class CapeRenderer implements ICurioRenderer {
                                                                           RenderLayerParent<T, M> parent, MultiBufferSource buffer, int light,
                                                                           float limbSwing, float limbSwingAmount, float partialTicks,
                                                                           float ageInTicks, float netHeadYaw, float headPitch) {
-        if (!(stack.getItem() instanceof AccessoryItem item)) return;
+        // AccessoryItem = capa do Kitty (tingivel); qualquer outro item = capa de peso do DMZ, desenhada com a mesma textura sem tinta
+        AccessoryItem item = stack.getItem() instanceof AccessoryItem a ? a : null;
         if (!(parent.getModel() instanceof HumanoidModel<?> base)) return;
 
         model.young = false;
@@ -80,9 +83,11 @@ public class CapeRenderer implements ICurioRenderer {
             model.cape1.zRot = model.cape2.zRot = model.cape3.zRot = 0F;
         }
 
-        boolean dyed = item.hasCustomColor(stack);
+        boolean dyed = item != null ? item.hasCustomColor(stack) : com.dmzkittyclothes.WeightCapeDye.hasColor(stack);
+        int dyeColor = item != null ? (dyed ? item.getColor(stack) : 0xFFFFFF) : com.dmzkittyclothes.WeightCapeDye.getColor(stack);
+        ResourceLocation base = item != null ? item.mainTexture() : WEIGHT_CAPE_TEXTURE;
         // com tinta: realce normal; sem tinta: multiplicacao por branco = textura original (so para poder pintar as bordas)
-        ResourceLocation tex = TintTextures.get(item.mainTexture(), dyed ? item.getColor(stack) : 0xFFFFFF, dyed, CapeModel.EDGES);
+        ResourceLocation tex = TintTextures.get(base, dyed ? dyeColor : 0xFFFFFF, dyed, CapeModel.EDGES);
         VertexConsumer consumer = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.armorCutoutNoCull(tex), false, stack.hasFoil());
         model.renderToBuffer(poseStack, consumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }

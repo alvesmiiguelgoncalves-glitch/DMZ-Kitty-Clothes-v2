@@ -85,6 +85,9 @@ public final class ClientSetup {
             });
             DmzKittyClothes.CAPES.forEach(g -> CuriosRendererRegistry.register(g.get(),
                     () -> new CapeRenderer(new CapeModel(Minecraft.getInstance().getEntityModels().bakeLayer(CapeModel.LAYER)))));
+            // capa de peso do Piccolo (DMZ): mesma capa deste mod
+            CuriosRendererRegistry.register(com.dragonminez.common.init.MainItems.WEIGHT_PICCOLO_CAPE.get(),
+                    () -> new CapeRenderer(new CapeModel(Minecraft.getInstance().getEntityModels().bakeLayer(CapeModel.LAYER))));
             // 1 = dyed: the item model switches to the grayscale icon, which is tinted with the dye color.
             ItemProperties.register(DmzKittyClothes.SAB_JACKET.get(), new ResourceLocation(DmzKittyClothes.MOD_ID, "dyed"),
                     (stack, level, entity, seed) -> stack.getItem() instanceof SabJacketItem item && item.hasCustomColor(stack) ? 1.0F : 0.0F);

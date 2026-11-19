@@ -112,6 +112,9 @@ public class DmzKittyClothes {
     public static final RegistryObject<net.minecraft.world.item.crafting.RecipeSerializer<?>> JACKET_DYE_RECIPE =
             RECIPES.register("sab_jacket_dye", () -> SabJacketDyeRecipe.SERIALIZER);
 
+    public static final RegistryObject<net.minecraft.world.item.crafting.RecipeSerializer<?>> WEIGHT_CAPE_DYE_RECIPE =
+            RECIPES.register("weight_cape_dye", () -> WeightCapeDye.SERIALIZER);
+
     public DmzKittyClothes() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ITEMS.register(bus);
@@ -125,6 +128,7 @@ public class DmzKittyClothes {
         // Agua no caldeirao remove as tres cores.
         event.enqueueWork(() -> {
             CauldronInteraction.WATER.put(SAB_JACKET.get(), SabJacketItem::washInCauldron);
+            CauldronInteraction.WATER.put(com.dragonminez.common.init.MainItems.WEIGHT_PICCOLO_CAPE.get(), WeightCapeDye::wash);
             GLOVES.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
             SUITS.forEach(g -> CauldronInteraction.WATER.put(g.get(), CauldronInteraction.DYED_ITEM));
             VESTS.forEach(g -> CauldronInteraction.WATER.put(g.get(), SabJacketItem::washInCauldron));
