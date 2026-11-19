@@ -135,8 +135,8 @@ public final class TintTextures {
                                 int cp = out.getPixelRGBA(f[4] + (f[2] - 1 - x), f[5] + (y - f[1]));
                                 int ca = cp >>> 24;
                                 if (ca == 0) continue;
-                                int cr = clamp((cp & 0xFF) * shc), cg = clamp(((cp >> 8) & 0xFF) * shc), cb = clamp(((cp >> 16) & 0xFF) * shc);
-                                out.setPixelRGBA(x, y, (ca << 24) | (cb << 16) | (cg << 8) | cr);
+                                int qr = clamp((cp & 0xFF) * shc), qg = clamp(((cp >> 8) & 0xFF) * shc), qb = clamp(((cp >> 16) & 0xFF) * shc);
+                                out.setPixelRGBA(x, y, (ca << 24) | (qb << 16) | (qg << 8) | qr);
                             }
                         }
                         continue;
