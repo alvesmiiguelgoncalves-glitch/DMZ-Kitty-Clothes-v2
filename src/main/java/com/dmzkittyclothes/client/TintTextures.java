@@ -34,7 +34,7 @@ public final class TintTextures {
 
     /**
      * Retangulos de pixels {x0,y0,x1,y1} (x1/y1 exclusivos): keep=true mantem so o que esta dentro; keep=false apaga o que esta dentro.
-     * fills: {x0,y0,x1,y1, origemX,origemY, sombra%[, 1 = so onde esta vazio (tapa buracos)]} pinta o retangulo com a cor (ja tingida) do pixel de origem, escurecida pela sombra.
+     * fills: {x0,y0,x1,y1, origemX,origemY, sombra%[, 1 = so onde esta vazio (tapa buracos) | 2 = copia espelhada do retangulo de origem]} pinta o retangulo com a cor (ja tingida) do pixel de origem, escurecida pela sombra.
      * Serve para dar cor as laterais de pecas com espessura, que nao existem na textura original.
      */
     public record Region(boolean keep, int[][] rects, int[][] fills) {
@@ -127,6 +127,20 @@ public final class TintTextures {
             }
             if (region != null) {
                 for (int[] f : region.fills()) {
+                    if (f.length > 7 && f[7] == 2) {
+                        // copia espelhada na horizontal do retangulo de origem (f[4],f[5]) para o destino, escurecida pela sombra
+                        float shc = f[6] / 100F;
+                        for (int y = f[1]; y < f[3]; y++) {
+                            for (int x = f[0]; x < f[2]; x++) {
+                                int cp = out.getPixelRGBA(f[4] + (f[2] - 1 - x), f[5] + (y - f[1]));
+                                int ca = cp >>> 24;
+                                if (ca == 0) continue;
+                                int cr = clamp((cp & 0xFF) * shc), cg = clamp(((cp >> 8) & 0xFF) * shc), cb = clamp(((cp >> 16) & 0xFF) * shc);
+                                out.setPixelRGBA(x, y, (ca << 24) | (cb << 16) | (cg << 8) | cr);
+                            }
+                        }
+                        continue;
+                    }
                     int sp = out.getPixelRGBA(f[4], f[5]);
                     int sa = sp >>> 24;
                     if (sa == 0) continue;

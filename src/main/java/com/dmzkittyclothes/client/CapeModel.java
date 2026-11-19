@@ -22,7 +22,7 @@ public class CapeModel extends SuitModel {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(
             new ResourceLocation(DmzKittyClothes.MOD_ID, "piccolo_cape"), "main");
 
-    public final ModelPart collarBase, collarTop, band, cape1, cape2, cape3;
+    public final ModelPart collarBase, collarTop, band, padR, padL, cape1, cape2, cape3;
     public final ModelPart[] panels;
 
     public CapeModel(ModelPart root) {
@@ -30,6 +30,8 @@ public class CapeModel extends SuitModel {
         this.collarBase = this.body.getChild("collar_base");
         this.collarTop = this.body.getChild("collar_top");
         this.band = this.body.getChild("band");
+        this.padR = this.rightArm.getChild("pad");
+        this.padL = this.leftArm.getChild("pad");
         this.cape1 = this.body.getChild("cape1");
         this.cape2 = this.cape1.getChild("cape2");
         this.cape3 = this.cape2.getChild("cape3");
@@ -37,8 +39,31 @@ public class CapeModel extends SuitModel {
     }
 
     /** Posicao de repouso (usada pelo renderer junto com os deslocamentos da config). */
-    public static final float CAPE_Y = -0.25F, CAPE_Z = 2.6F;
+    public static final float CAPE_Y = -0.25F;
+    /** Distancia da face de dentro da capa ate o centro do corpo (fica fora do corpo, dos bracos e da roupa). */
+    public static final float CAPE_INNER_Z = 2.5F;
 
+
+    /**
+     * A capa tem 1 px de espessura, mas a textura so desenha a face de fora. Aqui pintamos as outras faces de cada segmento
+     * (u=8, v=31/37/43, w=12, d=1): a de dentro = copia espelhada da de fora; laterais, topo e base = cor da capa, mais escura.
+     */
+    public static final TintTextures.Region EDGES = new TintTextures.Region(false, new int[0][], capeFills());
+
+    private static int[][] capeFills() {
+        int[] v = {31, 37, 43};
+        int[] h = {6, 6, 8};
+        java.util.List<int[]> out = new java.util.ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            int r0 = v[i] + 1, sy = r0 + 2;
+            out.add(new int[]{22, r0, 34, r0 + h[i], 9, r0, 85, 2});             // face de dentro
+            out.add(new int[]{8, r0, 9, r0 + h[i], 14, sy, 80, 1});              // lado oeste
+            out.add(new int[]{21, r0, 22, r0 + h[i], 14, sy, 80, 1});            // lado leste
+            out.add(new int[]{21, v[i], 33, v[i] + 1, 14, sy, 70, 1});           // base
+            if (i == 0) out.add(new int[]{9, 31, 21, 32, 14, sy, 90, 1});        // topo (nos outros segmentos o topo ja usa pixels da textura)
+        }
+        return out.toArray(new int[0][]);
+    }
 
     public static LayerDefinition createLayer() {
         MeshDefinition mesh = new MeshDefinition();
@@ -52,13 +77,18 @@ public class CapeModel extends SuitModel {
         body.addOrReplaceChild("collar_top", CubeListBuilder.create().texOffs(44, 37).addBox(-3F, -2F, -2.5F, 6F, 4F, 5F, new CubeDeformation(0.8F)), PartPose.offset(0F, 0F, 0F));
         // faixa do peito/ombros: caixa 8x5x4, UV do corpo (topo (20,16), laterais a partir de y20)
         body.addOrReplaceChild("band", CubeListBuilder.create().texOffs(16, 16).addBox(-4F, 0F, -2F, 8F, 5F, 4F, new CubeDeformation(0.5F)), PartPose.ZERO);
-        root.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-5F, 2F, 0F));
-        root.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(5F, 2F, 0F));
+        PartDefinition right = root.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-5F, 2F, 0F));
+        PartDefinition left = root.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(5F, 2F, 0F));
+        // ombreiras: 6x4x5, rede em (44,37); a esquerda usa a mesma textura espelhada
+        right.addOrReplaceChild("pad", CubeListBuilder.create().texOffs(44, 37).addBox(-2F, -2F, -2F, 6F, 4F, 5F, new CubeDeformation(0.2F)),
+                PartPose.offsetAndRotation(-2.7F, -0.75F, -0.5F, 0F, 0F, (float) Math.toRadians(7.5)));
+        left.addOrReplaceChild("pad", CubeListBuilder.create().texOffs(44, 37).mirror().addBox(-1F, -2F, -2.5F, 6F, 4F, 5F, new CubeDeformation(0.2F)),
+                PartPose.offsetAndRotation(-0.25F, -0.35F, 0F, 0F, 0F, (float) Math.toRadians(-7.5)));
         root.addOrReplaceChild("right_leg", CubeListBuilder.create(), PartPose.offset(-1.9F, 12F, 0F));
         root.addOrReplaceChild("left_leg", CubeListBuilder.create(), PartPose.offset(1.9F, 12F, 0F));
 
         // capa: cape1 pendurada no pescoco; cape2 e cape3 penduradas na ponta do segmento de cima
-        PartDefinition c1 = body.addOrReplaceChild("cape1", CubeListBuilder.create(), PartPose.offset(0F, CAPE_Y, CAPE_Z));
+        PartDefinition c1 = body.addOrReplaceChild("cape1", CubeListBuilder.create(), PartPose.offset(0F, CAPE_Y, CAPE_INNER_Z + 1F));
         c1.addOrReplaceChild("panel", CubeListBuilder.create().texOffs(8, 31).addBox(-6F, 0F, 0F, 12F, 6F, 1F), PartPose.rotation(0F, (float) Math.PI, 0F));
         PartDefinition c2 = c1.addOrReplaceChild("cape2", CubeListBuilder.create(), PartPose.offset(0F, 6F, 0F));
         c2.addOrReplaceChild("panel", CubeListBuilder.create().texOffs(8, 37).addBox(-6F, 0F, 0F, 12F, 6F, 1F), PartPose.rotation(0F, (float) Math.PI, 0F));

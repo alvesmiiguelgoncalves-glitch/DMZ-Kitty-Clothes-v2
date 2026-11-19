@@ -49,14 +49,18 @@ public class CapeRenderer implements ICurioRenderer {
         model.crouching = base.crouching;
         model.followPose(base);
 
-        model.collarBase.visible = model.collarTop.visible = KittyConfig.getBool(KittyConfig.CAPE_SHOW_COLLAR);
+        model.collarBase.visible = KittyConfig.getBool(KittyConfig.CAPE_SHOW_COLLAR);
+        model.collarTop.visible = model.collarBase.visible && KittyConfig.getBool(KittyConfig.CAPE_SHOW_COLLAR_TOP);
+        model.padR.visible = model.padL.visible = KittyConfig.getBool(KittyConfig.CAPE_SHOW_PADS);
+        apply(model.padR, -2.7F, -0.75F, -0.5F, KittyConfig.CAPE_PADS, -1F);
+        apply(model.padL, -0.25F, -0.35F, 0F, KittyConfig.CAPE_PADS, 1F);
         model.band.visible = KittyConfig.getBool(KittyConfig.CAPE_SHOW_BAND);
         apply(model.collarBase, 0F, 1F, 0F, KittyConfig.CAPE_COLLAR_BASE, 1F);
         apply(model.collarTop, 0F, 0F, 0F, KittyConfig.CAPE_COLLAR_TOP, 1F);
         apply(model.band, 0F, 0F, 0F, KittyConfig.CAPE_BAND, 1F);
-        apply(model.cape1, 0F, CapeModel.CAPE_Y, CapeModel.CAPE_Z, KittyConfig.CAPE_BODY, 1F);
-
         float thickness = KittyConfig.get(KittyConfig.CAPE_DEPTH);
+        // a espessura cresce para dentro do pivo; empurro o pivo para fora pelo mesmo tanto, assim a face de dentro fica sempre em 2.5
+        apply(model.cape1, 0F, CapeModel.CAPE_Y, CapeModel.CAPE_INNER_Z + thickness, KittyConfig.CAPE_BODY, 1F);
         for (ModelPart panel : model.panels) panel.zScale = thickness;
 
         if (KittyConfig.getBool(KittyConfig.CAPE_PHYSICS)) {
@@ -74,7 +78,8 @@ public class CapeRenderer implements ICurioRenderer {
         }
 
         boolean dyed = item.hasCustomColor(stack);
-        ResourceLocation tex = dyed ? TintTextures.get(item.mainTexture(), item.getColor(stack)) : item.mainTexture();
+        // com tinta: realce normal; sem tinta: multiplicacao por branco = textura original (so para poder pintar as bordas)
+        ResourceLocation tex = TintTextures.get(item.mainTexture(), dyed ? item.getColor(stack) : 0xFFFFFF, dyed, CapeModel.EDGES);
         VertexConsumer consumer = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.armorCutoutNoCull(tex), false, stack.hasFoil());
         model.renderToBuffer(poseStack, consumer, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
     }
