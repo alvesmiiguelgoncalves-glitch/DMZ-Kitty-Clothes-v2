@@ -29,11 +29,11 @@ public final class KittyConfig {
     /** {scaleX, scaleY, scaleZ, offsetX, offsetY, offsetZ} */
     public static final ForgeConfigSpec.DoubleValue[] WAIST = new ForgeConfigSpec.DoubleValue[6];
     public static final ForgeConfigSpec.DoubleValue[] COLLAR = new ForgeConfigSpec.DoubleValue[6];
-    public static final ForgeConfigSpec.DoubleValue[] CAPE_COLLAR = new ForgeConfigSpec.DoubleValue[6];
-    public static final ForgeConfigSpec.DoubleValue[] CAPE_TURBAN = new ForgeConfigSpec.DoubleValue[6];
-    public static final ForgeConfigSpec.DoubleValue[] CAPE_PADS = new ForgeConfigSpec.DoubleValue[6];
+    public static final ForgeConfigSpec.DoubleValue[] CAPE_COLLAR_BASE = new ForgeConfigSpec.DoubleValue[6];
+    public static final ForgeConfigSpec.DoubleValue[] CAPE_COLLAR_TOP = new ForgeConfigSpec.DoubleValue[6];
+    public static final ForgeConfigSpec.DoubleValue[] CAPE_BAND = new ForgeConfigSpec.DoubleValue[6];
     public static final ForgeConfigSpec.DoubleValue[] CAPE_BODY = new ForgeConfigSpec.DoubleValue[6];
-    public static final ForgeConfigSpec.BooleanValue CAPE_SHOW_COLLAR, CAPE_SHOW_TURBAN, CAPE_SHOW_PADS, CAPE_PHYSICS;
+    public static final ForgeConfigSpec.BooleanValue CAPE_SHOW_COLLAR, CAPE_SHOW_BAND, CAPE_PHYSICS;
     public static final ForgeConfigSpec.DoubleValue CAPE_SWING, CAPE_STIFFNESS, CAPE_DEPTH;
 
     private static void extra(ForgeConfigSpec.Builder b, String name, String comment, ForgeConfigSpec.DoubleValue[] out, double... d) {
@@ -96,16 +96,15 @@ public final class KittyConfig {
         SCARF_RAISE = b.comment("Sobe as pontas do cachecol longo (pixels). Aumente se aparecer roupa entre o pescoco e a ponta").defineInRange("raise", 0.7, -3.0, 4.0);
         b.pop();
         b.comment("Capa do Piccolo (slot Costas). Cada parte tem escala e deslocamento, como a jaqueta.").push("cape");
-        CAPE_SHOW_COLLAR = b.comment("Mostrar o colar do pescoco").define("showCollar", true);
-        CAPE_SHOW_TURBAN = b.comment("Mostrar a faixa/turbante da cabeca").define("showTurban", true);
-        CAPE_SHOW_PADS = b.comment("Mostrar as ombreiras").define("showPads", true);
+        CAPE_SHOW_COLLAR = b.comment("Mostrar o colar (as duas pecas: base achatada + parte de cima)").define("showCollar", true);
+        CAPE_SHOW_BAND = b.comment("Mostrar a faixa do peito/ombros (caixa 8x5x4 do pescoco)").define("showBand", true);
         CAPE_PHYSICS = b.comment("Liga/desliga a fisica da capa").define("physics", true);
         CAPE_SWING = b.comment("Quanto a capa balanca (1.0 = padrao, 0 = parada)").defineInRange("swing", 1.0, 0.0, 3.0);
         CAPE_STIFFNESS = b.comment("Rigidez da mola: maior = volta mais rapido; menor = mais lenta/molenga").defineInRange("stiffness", 22.0, 2.0, 200.0);
-        CAPE_DEPTH = b.comment("Espessura do tecido da capa (pixels)").defineInRange("depth", 0.15, 0.05, 2.0);
-        extra(b, "collar", "Colar do pescoco.", CAPE_COLLAR, 1, 1, 1, 0, 0, 0);
-        extra(b, "turban", "Faixa/turbante da cabeca.", CAPE_TURBAN, 1, 1, 1, 0, 0, 0);
-        extra(b, "pads", "Ombreiras (o deslocamento lado a lado afasta as duas igualmente).", CAPE_PADS, 1, 1, 1, 0, 0, 0);
+        CAPE_DEPTH = b.comment("Espessura do tecido da capa (pixels). 1.0 = 1 pixel").defineInRange("thickness", 1.0, 0.05, 3.0);
+        extra(b, "collarBase", "Colar: peca de baixo (laje achatada 8x2x8).", CAPE_COLLAR_BASE, 1, 1, 1, 0, 0, 0);
+        extra(b, "collarTop", "Colar: peca de cima (6x4x5).", CAPE_COLLAR_TOP, 1, 1, 1, 0, 0, 0);
+        extra(b, "band", "Faixa do peito/ombros (caixa 8x5x4 do pescoco).", CAPE_BAND, 1, 1, 1, 0, 0, 0);
         extra(b, "body", "Capa (os 3 segmentos juntos): Largura/Altura(comprimento)/Profundidade e posicao.", CAPE_BODY, 1, 1, 1, 0, 0, 0);
         b.pop();
         extra(b, "waist", "Faixa/quadrado da cintura da jaqueta.", WAIST, 0.98, 1.15, 0.85, 0, 0, 0);

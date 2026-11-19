@@ -19,7 +19,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.client.ICurioRenderer;
 
-/** Capa do Piccolo (slot Costas): colar, turbante, ombreiras e capa com fisica; tudo ajustavel na config [cape]. */
+/** Capa do Piccolo (slot Costas): faixa, colar e capa com fisica; tudo ajustavel na config [cape]. */
 public class CapeRenderer implements ICurioRenderer {
 
     private final CapeModel model;
@@ -49,13 +49,11 @@ public class CapeRenderer implements ICurioRenderer {
         model.crouching = base.crouching;
         model.followPose(base);
 
-        model.turban.visible = KittyConfig.getBool(KittyConfig.CAPE_SHOW_TURBAN);
-        model.collar.visible = KittyConfig.getBool(KittyConfig.CAPE_SHOW_COLLAR);
-        model.padR.visible = model.padL.visible = KittyConfig.getBool(KittyConfig.CAPE_SHOW_PADS);
-        apply(model.turban, 0F, 0F, 0F, KittyConfig.CAPE_TURBAN, 1F);
-        apply(model.collar, 0F, 0F, 0F, KittyConfig.CAPE_COLLAR, 1F);
-        apply(model.padR, -2.7F, -0.75F, -0.5F, KittyConfig.CAPE_PADS, -1F);
-        apply(model.padL, -0.25F, -0.35F, 0F, KittyConfig.CAPE_PADS, 1F);
+        model.collarBase.visible = model.collarTop.visible = KittyConfig.getBool(KittyConfig.CAPE_SHOW_COLLAR);
+        model.band.visible = KittyConfig.getBool(KittyConfig.CAPE_SHOW_BAND);
+        apply(model.collarBase, 0F, 1F, 0F, KittyConfig.CAPE_COLLAR_BASE, 1F);
+        apply(model.collarTop, 0F, 0F, 0F, KittyConfig.CAPE_COLLAR_TOP, 1F);
+        apply(model.band, 0F, 0F, 0F, KittyConfig.CAPE_BAND, 1F);
         apply(model.cape1, 0F, CapeModel.CAPE_Y, CapeModel.CAPE_Z, KittyConfig.CAPE_BODY, 1F);
 
         float thickness = KittyConfig.get(KittyConfig.CAPE_DEPTH);
