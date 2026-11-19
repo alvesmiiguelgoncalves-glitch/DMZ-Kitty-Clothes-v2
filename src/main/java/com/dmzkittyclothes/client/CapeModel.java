@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 /**
  * Capa do Piccolo (textura 64x64 do usuario):
  * - capa: 3 segmentos de 12 de largura (6+6+8 de altura), face de tras em x9-20, y32-51; cada segmento pendura no de cima (fisica em cadeia);
- * - a faixa e o colar ficam presos na CABECA (giram junto com ela, entao a cabeca nao atravessa a gola);
+ * - o colar fica preso na CABECA (a cabeca nao atravessa a gola); a faixa (textura do torso) fica presa no CORPO, separada do colar;
  * - faixa (band): caixa 8x5x4 no pescoco (UV do corpo: topo em (20,16), laterais a partir de y20);
  * - colar: peca de baixo = laje 8x2x8 (rede em (32,0)) e peca de cima = 6x4x5 (rede em (42,37)).
  */
@@ -30,7 +30,7 @@ public class CapeModel extends SuitModel {
         super(root);
         this.collarBase = this.head.getChild("collar_base");
         this.collarTop = this.head.getChild("collar_top");
-        this.band = this.head.getChild("band");
+        this.band = this.body.getChild("band");
         this.padR = this.rightArm.getChild("pad");
         this.padL = this.leftArm.getChild("pad");
         this.cape1 = this.body.getChild("cape1");
@@ -77,7 +77,7 @@ public class CapeModel extends SuitModel {
         // colar, peca de cima: 6x4x5, rede em (42,37); inflada para aparecer em volta do pescoco
         head.addOrReplaceChild("collar_top", CubeListBuilder.create().texOffs(42, 37).addBox(-3F, -2F, -2.5F, 6F, 4F, 5F, new CubeDeformation(0.8F)), PartPose.offset(0F, 0F, 0F));
         // faixa do peito/ombros: caixa 8x5x4, UV do corpo (topo (20,16), laterais a partir de y20)
-        head.addOrReplaceChild("band", CubeListBuilder.create().texOffs(16, 16).addBox(-4F, 0F, -2F, 8F, 5F, 4F, new CubeDeformation(0.5F)), PartPose.ZERO);
+        body.addOrReplaceChild("band", CubeListBuilder.create().texOffs(16, 16).addBox(-4F, 0F, -2F, 8F, 5F, 4F, new CubeDeformation(0.5F)), PartPose.ZERO);
         PartDefinition right = root.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.offset(-5F, 2F, 0F));
         PartDefinition left = root.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(5F, 2F, 0F));
         // ombreiras: 6x4x5, rede em (42,37); a esquerda usa a mesma textura espelhada
